@@ -7,7 +7,7 @@
     tools:context="com.example.raiza.semanacomputacao.MainActivity">
 
     <Button
-        android:id="@+id/btn_ptc_voltar"
+        android:id="@+id/evt_btn_voltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/ptc_lista"
+        android:id="@+id/evt_lista"
         android:layout_width="357dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="224dp"
@@ -30,7 +30,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_ptc_voltar"
+        app:layout_constraintBottom_toTopOf="@+id/evt_btn_voltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent" />
@@ -46,7 +46,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Eventos"
-        app:layout_constraintBottom_toTopOf="@+id/ptc_lista"
+        app:layout_constraintBottom_toTopOf="@+id/evt_lista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -7,33 +7,19 @@
     tools:context="com.example.raiza.semanacomputacao.MainActivity">
 
     <Button
-        android:id="@+id/btn_casastrar_ptc"
+        android:id="@+id/btn_cadastra_ptc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="Cadastrar Participante"
-        app:layout_constraintBottom_toTopOf="@+id/btn_cadastrar_evt"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cadastra_evt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.341"
+        app:layout_constraintHorizontal_bias="0.223"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btn_cadastrar_evt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="9dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginStart="8dp"
-        android:text="Cadastrar Evento"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.268"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="320dp" />
 
     <Button
         android:id="@+id/btn_lista_ptc"
@@ -44,26 +30,28 @@
         android:layout_marginLeft="28dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
         android:text="Listar Participantes"
         app:layout_constraintBottom_toTopOf="@+id/btn_lista_evt"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.231"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.866" />
 
     <Button
         android:id="@+id/btn_lista_evt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="36dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="28dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="28dp"
         android:text="Listar Eventos"
-        app:layout_constraintBottom_toTopOf="@+id/btn_casastrar_ptc"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cadastra_ptc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -76,5 +64,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_semana" />
+
+    <Button
+        android:id="@+id/btn_cadastra_evt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Cadastrar Evento"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
