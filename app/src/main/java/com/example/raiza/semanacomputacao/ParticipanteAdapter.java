@@ -12,14 +12,14 @@
 
     public class ParticipanteAdapter extends RecyclerView.Adapter<ParticipanteAdapter.ViewHolder>  {
 
-        private List<String> participante;
+        private List<Participante> participante;
         private OnParticipanteClickListener listener;
 
     public interface OnParticipanteClickListener {
         void onParticipanteClick(View view, int position);
     }
 
-    public void setOnPessoaClickListener(OnParticipanteClickListener listener){
+    public void setOnShortParticipanteClickListener(OnParticipanteClickListener listener){
             this.listener = listener;
     }
 
@@ -64,21 +64,20 @@
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
-            View linhaPessoa = inflater.inflate(R.layout.participante_layout, parent, false);
-            ViewHolder viewHolder = new ViewHolder(linhaPessoa);
+            View linhaParticipante = inflater.inflate(R.layout.participante_layout, parent, false);
+            ViewHolder viewHolder = new ViewHolder(linhaParticipante);
 
             return viewHolder;
         }
 
 
-        public ParticipanteAdapter(List<String> participante) {
+        public ParticipanteAdapter(List<Participante> participante) {
             this.participante = participante;
         }
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.txtNome.setText(participante.get(position));
-
+            holder.txtNome.setText(participante.get(position).getUsuario());
         }
 
         @Override
