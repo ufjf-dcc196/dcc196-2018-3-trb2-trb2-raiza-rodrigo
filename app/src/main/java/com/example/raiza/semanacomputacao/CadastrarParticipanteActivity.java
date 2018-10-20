@@ -8,8 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 public class CadastrarParticipanteActivity extends AppCompatActivity {
     private EditText edtNome;
     private EditText edtEmail;
@@ -30,8 +28,8 @@ public class CadastrarParticipanteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ListaParticipante.getInstance().add(new Participante(String.valueOf(edtNome.getText()),String.valueOf(edtEmail.getText()),String.valueOf(edtCpf.getText())));
-                Toast.makeText(CadastrarParticipanteActivity.this, edtNome.getText() + " Cadastrado com sucesso, O numero de cadastrados é " + ListaParticipante.getInstance().size(), Toast.LENGTH_SHORT).show();
+                ListaInicialParticipante.getInstance().add(new Participante(String.valueOf(edtNome.getText()),String.valueOf(edtEmail.getText()),String.valueOf(edtCpf.getText())));
+                Toast.makeText(CadastrarParticipanteActivity.this, edtNome.getText() + " Cadastrado com sucesso, O numero de cadastrados é " + ListaInicialParticipante.getInstance().size(), Toast.LENGTH_SHORT).show();
                 edtCpf.setText("");
                 edtEmail.setText("");
                 edtNome.setText("");

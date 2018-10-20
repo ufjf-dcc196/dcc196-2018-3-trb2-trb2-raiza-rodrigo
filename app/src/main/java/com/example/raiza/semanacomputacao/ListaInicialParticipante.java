@@ -3,7 +3,7 @@ package com.example.raiza.semanacomputacao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaParticipante {
+public class ListaInicialParticipante {
 
     private static List<Participante> participante;
 

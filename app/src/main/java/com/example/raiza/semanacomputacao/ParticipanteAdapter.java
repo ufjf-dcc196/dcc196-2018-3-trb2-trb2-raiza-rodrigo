@@ -78,6 +78,7 @@
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             holder.txtNome.setText(participante.get(position).getUsuario());
+
         }
 
         @Override

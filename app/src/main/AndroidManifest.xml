@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListarPtcActivity" />
-        <activity android:name=".CadastrarParticipanteActivity"></activity>
+        <activity android:name=".CadastrarParticipanteActivity" />
+        <activity android:name=".CadastrarEventoActivity"></activity>
     </application>
 
 </manifest>

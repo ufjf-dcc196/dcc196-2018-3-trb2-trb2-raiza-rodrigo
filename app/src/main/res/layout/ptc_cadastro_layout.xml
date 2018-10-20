@@ -7,7 +7,7 @@
     tools:context="com.example.raiza.semanacomputacao.MainActivity">
 
     <TextView
-        android:id="@+id/evt_txt_titulo"
+        android:id="@+id/evt_edt_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/evt_txt_titulo"
+        app:layout_constraintTop_toBottomOf="@+id/evt_edt_titulo"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
