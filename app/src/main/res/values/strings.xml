@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Videoflix</string>
+    <string name="app_name">Semana da Computação</string>
+    <string name="title_activity_cadastrar_participante">CadastrarParticipanteActivity</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.raiza.semanacomputacao;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -16,80 +17,47 @@ import android.widget.EditText;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnInserir;
-    private Button btnListar;
-    private RecyclerView rclSeries;
+    private static final int REQUEST_CADASTRAPTC = 2;
+    private static final int REQUEST_LISTAPTC = 1;
+    private Button btnListarPtc;
+    private Button btnListarEvt;
+    private Button btnCadastrarPtc;
+    private Button btnCadastrarEvt;
 
-
-
-    private EditText edtTitulo;
-    private EditText edtTemporada;
-    private EditText edtAno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      /*  dbHelper = new SeriesDbHelper(getApplicationContext());
-        adapter = new LembreteAdapter(getCursorLivrosPos1950());
-
-        rclSeries = (RecyclerView) findViewById(R.id.rcl_series);
-        rclSeries.setLayoutManager(new LinearLayoutManager(this));
-        rclSeries.setAdapter(adapter);
-
-        edtTitulo = (EditText) findViewById(R.id.edt_titulo);
-        edtTemporada = (EditText) findViewById(R.id.edt_temporada);
-        edtAno = (EditText) findViewById(R.id.edt_ano);
-
-        final Random rnd = new Random();
-
-        btnInserir = (Button) findViewById(R.id.btn_ptc_voltar);
-        btnInserir.setOnClickListener(new View.OnClickListener() {
+        btnListarPtc = (Button) findViewById(R.id.btn_lista_ptc);
+        btnListarPtc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                ContentValues values = new ContentValues();
-                values.put(SeriesContract.Lembrete.COLUMN_NAME_TITULO,String.valueOf(edtTitulo.getText()));
-                values.put(SeriesContract.Lembrete.COLUMN_NAME_TEMPORADA,Integer.valueOf(String.valueOf(edtTemporada.getText())));
-                values.put(SeriesContract.Lembrete.COLUMN_NAME_ANO, Integer.valueOf(String.valueOf(edtAno.getText())));
-                long id = db.insert(SeriesContract.Lembrete.TABLE_NAME,null, values);
-                Log.i("DBINFO","registro criado com id: " + id);
-                adapter.setCursor(getCursorLivrosPos1950());
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ListarPtcActivity.class);
+                startActivityForResult(intent, MainActivity.REQUEST_LISTAPTC);
             }
         });
 
-        btnListar = (Button) findViewById(R.id.btn_casastrar_ptc);
-        btnListar.setOnClickListener(new View.OnClickListener() {
+        btnListarEvt = (Button) findViewById(R.id.btn_lista_evt);
+
+        btnCadastrarPtc = (Button) findViewById(R.id.btn_cadastra_ptc);
+        btnCadastrarPtc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Cursor cursor = getCursorLivrosPos1950();
-                cursor.moveToPosition(-1);
-                while(cursor.moveToNext()){
-                    int idxTitulo = cursor.getColumnIndexOrThrow(SeriesContract.Lembrete.COLUMN_NAME_TITULO);
-                    String titulo = cursor.getString(idxTitulo);
-                    int idxAutor = cursor.getColumnIndexOrThrow(SeriesContract.Lembrete.COLUMN_NAME_TEMPORADA);
-                    String autor = cursor.getString(idxAutor);
-                    int idxAno = cursor.getColumnIndexOrThrow(SeriesContract.Lembrete.COLUMN_NAME_ANO);
-                    String ano = cursor.getString(idxAno);
-                    Log.i("DBINFO","titulo: " + titulo +" autor: "+ autor + " ano: " + ano);
-                }
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CadastrarParticipanteActivity.class);
+                startActivityForResult(intent, MainActivity.REQUEST_CADASTRAPTC);
             }
         });
+
+        btnListarEvt = (Button) findViewById(R.id.btn_cadastra_evt);
+
+
+
+
+
+
     }
-
-    private Cursor getCursorLivrosPos1950() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] visao = {
-                SeriesContract.Lembrete.COLUMN_NAME_TITULO,SeriesContract.Lembrete.COLUMN_NAME_TEMPORADA, SeriesContract.Lembrete.COLUMN_NAME_ANO
-        };
-        String restricoes = SeriesContract.Lembrete.COLUMN_NAME_ANO + " > ?";
-        String[] params = {"1950"};
-        String sort = SeriesContract.Lembrete.COLUMN_NAME_ANO+ " DESC";
-        return db.query(SeriesContract.Lembrete.TABLE_NAME,visao,restricoes,params,null,null,sort,null);*/
-    }
-
-
 }
 
 
