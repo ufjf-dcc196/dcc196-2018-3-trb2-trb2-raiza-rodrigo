@@ -36,6 +36,7 @@ public class CadastrarEventoActivity extends AppCompatActivity {
                 edtHora.setText("");
                 edtFacilitador.setText("");
                 edtDescricao.setText("");
+                edtTitulo.requestFocus();
             }
         });
     }

@@ -33,6 +33,7 @@ public class CadastrarParticipanteActivity extends AppCompatActivity {
                 edtCpf.setText("");
                 edtEmail.setText("");
                 edtNome.setText("");
+                edtNome.requestFocus();
             }
         });
 
