@@ -6,34 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.raiza.semanacomputacao.MainActivity">
 
-    <Button
-        android:id="@+id/evt_btn_voltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginStart="8dp"
-        android:text="Voltar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/evt_rcl_lista"
-        android:layout_width="357dp"
-        android:layout_height="315dp"
-        android:layout_marginBottom="56dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/evt_btn_voltar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/evt_edt_titulo"
@@ -51,5 +23,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.106" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/evt_rcl_lista"
+        android:layout_width="360dp"
+        android:layout_height="225dp"
+        android:layout_marginBottom="284dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

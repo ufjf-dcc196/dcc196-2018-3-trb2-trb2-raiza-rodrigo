@@ -2,6 +2,7 @@ package com.example.raiza.semanacomputacao;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,7 +18,12 @@ public class ListarPtcActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ptc_lista_layout);
         rvParticipante = (RecyclerView) findViewById(R.id.ptc_rcl_lista);
-        rvParticipante.setLayoutManager(new LinearLayoutManager(this));
+      //  rvParticipante.setLayoutManager(new LinearLayoutManager(this));
+
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
+        rvParticipante.setLayoutManager(layout);
+
         final ParticipanteAdapter adapter = new ParticipanteAdapter(ListaInicialParticipante.getInstance());
         adapter.setOnShortParticipanteClickListener(new ParticipanteAdapter.OnParticipanteClickListener() {
             @Override

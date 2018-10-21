@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.raiza.semanacomputacao.MainActivity">
 
-    <Button
-        android:id="@+id/evt_btn_voltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:text="Voltar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <EditText
         android:id="@+id/evt_edt_titulo"
         android:layout_width="wrap_content"
@@ -79,8 +68,7 @@
         android:layout_marginStart="8dp"
         android:text="Salvar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/evt_btn_voltar"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
