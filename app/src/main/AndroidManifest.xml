@@ -22,7 +22,7 @@
         <activity android:name=".CadastrarParticipanteActivity" />
         <activity android:name=".CadastrarEventoActivity" />
         <activity android:name=".ListarEvtActivity" />
-        <activity android:name=".EditarParticipanteActivity"></activity>
+        <activity android:name=".EditarParticipanteActivity" />
     </application>
 
 </manifest>

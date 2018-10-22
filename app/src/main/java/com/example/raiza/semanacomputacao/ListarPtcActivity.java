@@ -1,5 +1,6 @@
 package com.example.raiza.semanacomputacao;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +12,11 @@ import android.widget.Toast;
 
 
 public class ListarPtcActivity extends AppCompatActivity {
+    public static final String PARTICIPANTE_NOME = "Nome Participante";
+    public static final String PARTICIPANTE_CPF = "CPF Participante";
+    public static final String PARTICIPANTE_EMAIL = "E-mail Participante";
+
+
     public RecyclerView rvParticipante;
 
     @Override
@@ -38,8 +44,11 @@ public class ListarPtcActivity extends AppCompatActivity {
 
             @Override
             public void onLongParticipanteClick(View view, int position) {
-                Toast.makeText(ListarPtcActivity.this, "Foi longo esse click", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(ListarPtcActivity.this, EditarParticipanteActivity.class);
+                intent.putExtra(ListarPtcActivity.PARTICIPANTE_NOME, ListaInicialParticipante.getInstance().get(position).getUsuario());
+                intent.putExtra(ListarPtcActivity.PARTICIPANTE_CPF, ListaInicialParticipante.getInstance().get(position).getCpf());
+                intent.putExtra(ListarPtcActivity.PARTICIPANTE_EMAIL, ListaInicialParticipante.getInstance().get(position).getEmail());
+                startActivity(intent);
             }
         });
 
