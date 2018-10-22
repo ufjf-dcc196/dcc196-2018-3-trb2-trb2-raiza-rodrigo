@@ -12,9 +12,8 @@ import android.widget.Toast;
 
 
 public class ListarPtcActivity extends AppCompatActivity {
-    public static final String PARTICIPANTE_NOME = "Nome Participante";
-    public static final String PARTICIPANTE_CPF = "CPF Participante";
-    public static final String PARTICIPANTE_EMAIL = "E-mail Participante";
+    public static final String PARTICIPANTE = "Participante";
+
 
 
     public RecyclerView rvParticipante;
@@ -45,9 +44,7 @@ public class ListarPtcActivity extends AppCompatActivity {
             @Override
             public void onLongParticipanteClick(View view, int position) {
                 Intent intent = new Intent(ListarPtcActivity.this, EditarParticipanteActivity.class);
-                intent.putExtra(ListarPtcActivity.PARTICIPANTE_NOME, ListaInicialParticipante.getInstance().get(position).getUsuario());
-                intent.putExtra(ListarPtcActivity.PARTICIPANTE_CPF, ListaInicialParticipante.getInstance().get(position).getCpf());
-                intent.putExtra(ListarPtcActivity.PARTICIPANTE_EMAIL, ListaInicialParticipante.getInstance().get(position).getEmail());
+                intent.putExtra(ListarPtcActivity.PARTICIPANTE, (Participante) ListaInicialParticipante.getInstance().get(position));
                 startActivity(intent);
             }
         });

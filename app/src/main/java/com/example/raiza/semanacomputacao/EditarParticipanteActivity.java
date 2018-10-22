@@ -12,9 +12,8 @@ public class EditarParticipanteActivity extends AppCompatActivity {
     private EditText edtCpf;
     private EditText edtEmail;
     private Button btnInscrever;
-    private String nome;
-    private String email;
-    private String cpf;
+    private Participante participante;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +24,17 @@ public class EditarParticipanteActivity extends AppCompatActivity {
         edtCpf = findViewById(R.id.ptc_edt_email);
         btnInscrever = findViewById(R.id.btn_ptc_inscricao_evt);
         final Intent intent = getIntent();
-        Bundle bundleIntent = intent.getExtras();
-        nome = (String) bundleIntent.getString(ListarPtcActivity.PARTICIPANTE_NOME);
-        cpf = (String) bundleIntent.getString(ListarPtcActivity.PARTICIPANTE_CPF);
-        email = (String) bundleIntent.getString(ListarPtcActivity.PARTICIPANTE_EMAIL);
-        edtNome.setText(nome);
-        edtCpf.setText(cpf);
-        edtEmail.setText(email);
+
+        participante = (Participante)  intent.getSerializableExtra(ListarPtcActivity.PARTICIPANTE);
+        edtNome.setText(participante.getUsuario());
+        edtCpf.setText(participante.getCpf());
+        edtEmail.setText(participante.getEmail());
 
         btnInscrever.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditarParticipanteActivity.this, SelecionaEventoActivity.class);
+                intent.putExtra(ListarPtcActivity.PARTICIPANTE,participante);
                 startActivity(intent);
             }
         });

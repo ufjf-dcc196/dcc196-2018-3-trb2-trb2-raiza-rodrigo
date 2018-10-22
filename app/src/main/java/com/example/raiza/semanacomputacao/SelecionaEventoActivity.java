@@ -8,13 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class SelecionaEventoActivity extends AppCompatActivity {
-    public static final String EVENTO_TITULO = "Título Evento";
-    public static final String EVENTO_DATA = "Data Evento";
-    public static final String EVENTO_HORA = "Hora Evento";
-    public static final String EVENTO_FACILITADOR = "Facilitador Evento";
-    public static final String EVENTO_DESCRICAO = "Descrição Evento";
+    public static final String EVENTO = "Evento";
     private RecyclerView rvEvento;
+    Participante participante;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +21,24 @@ public class SelecionaEventoActivity extends AppCompatActivity {
         setContentView(R.layout.evt_seleciona_layout);
         rvEvento = (RecyclerView) findViewById(R.id.evt_rcl_cadastrados);
         rvEvento.setLayoutManager(new LinearLayoutManager(this));
+        List<Evento> lista = ListaInicialEvento.getInstance();
+        participante = (Participante) getIntent().getSerializableExtra(ListarPtcActivity.PARTICIPANTE);
 
-        final EventoAdapter adapter = new EventoAdapter(ListaInicialEvento.getInstance());
+        for(int j = 0; j < lista.size();j++){
+            for(int i = 0 ; i < participante.getEvento().size();i++){
+                if(lista.get(j).getTitulo().equals(participante.getEvento().get(i).getTitulo())){
+                    lista.remove(i);
+                }
+            }
+        }
+
+        final EventoAdapter adapter = new EventoAdapter(lista);
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
             public void onEventoClick(View view, int position) {
                 Intent intent = new Intent(SelecionaEventoActivity.this, InscreverParticipanteEventoActivity.class);
-                intent.putExtra(SelecionaEventoActivity.EVENTO_TITULO, ListaInicialEvento.getInstance().get(position).getTitulo());
-                intent.putExtra(SelecionaEventoActivity.EVENTO_DATA, ListaInicialEvento.getInstance().get(position).getData());
-                intent.putExtra(SelecionaEventoActivity.EVENTO_HORA, ListaInicialEvento.getInstance().get(position).getHora());
-                intent.putExtra(SelecionaEventoActivity.EVENTO_FACILITADOR, ListaInicialEvento.getInstance().get(position).getFacilitador());
-                intent.putExtra(SelecionaEventoActivity.EVENTO_DESCRICAO, ListaInicialEvento.getInstance().get(position).getDescricao());
+                intent.putExtra(SelecionaEventoActivity.EVENTO, ListaInicialEvento.getInstance().get(position));
+                intent.putExtra(ListarPtcActivity.PARTICIPANTE,participante);
                 startActivity(intent);
             }
         });
