@@ -25,7 +25,7 @@ public class ListarPtcActivity extends AppCompatActivity {
         rvParticipante.setLayoutManager(layout);
 
         final ParticipanteAdapter adapter = new ParticipanteAdapter(ListaInicialParticipante.getInstance());
-        adapter.setOnShortParticipanteClickListener(new ParticipanteAdapter.OnParticipanteClickListener() {
+        adapter.setOnParticipanteClickListener(new ParticipanteAdapter.OnParticipanteClickListener() {
             @Override
             public void onParticipanteClick(View view, int position) {
                 Toast.makeText(ListarPtcActivity.this, ListaInicialParticipante.getInstance().get(position).getUsuario(), Toast.LENGTH_SHORT).show();
@@ -35,7 +35,14 @@ public class ListarPtcActivity extends AppCompatActivity {
                 ListaInicialParticipante.getInstance().add(new Participante("item","",""));
                 adapter.notifyItemChanged(ListaInicialParticipante.getInstance().size()-1);
             }
+
+            @Override
+            public void onLongParticipanteClick(View view, int position) {
+                Toast.makeText(ListarPtcActivity.this, "Foi longo esse click", Toast.LENGTH_SHORT).show();
+
+            }
         });
+
         rvParticipante.setAdapter(adapter);
     }
 }
