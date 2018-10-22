@@ -23,6 +23,8 @@
         <activity android:name=".CadastrarEventoActivity" />
         <activity android:name=".ListarEvtActivity" />
         <activity android:name=".EditarParticipanteActivity" />
+        <activity android:name=".InscreverParticipanteEventoActivity" />
+        <activity android:name=".SelecionaEventoActivity"></activity>
     </application>
 
 </manifest>
