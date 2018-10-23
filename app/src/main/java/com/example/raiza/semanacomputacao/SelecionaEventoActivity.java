@@ -28,7 +28,20 @@ public class SelecionaEventoActivity extends AppCompatActivity {
         rvEvento.setLayoutManager(new LinearLayoutManager(this));
 
         final Intent intent = getIntent();
-        Bundle bundleResultado = intent.getExtras();
+        listarEventosNaoInscritos(intent);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_INSERCAO && resultCode == Activity.RESULT_OK && data != null){
+            listarEventosNaoInscritos(data);
+        }
+    }
+
+    private void listarEventosNaoInscritos(Intent data) {
+        Bundle bundleResultado = data.getExtras();
         posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
         participante = ListaInicialParticipante.getInstance().get(posicao);
         lista = ListaInicialEvento.getEventosParticipante(participante);
@@ -37,34 +50,11 @@ public class SelecionaEventoActivity extends AppCompatActivity {
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
             public void onEventoClick(View view, int position) {
-                Intent intent =  getIntent().setClass(SelecionaEventoActivity.this,InscreverParticipanteEventoActivity.class);
-                intent.putExtra(SelecionaEventoActivity.EVENTO, ListaInicialEvento.getEventosParticipante(participante).get(position));
-                startActivityForResult(intent,SelecionaEventoActivity.REQUEST_INSERCAO);
+                Intent intent = getIntent().setClass(SelecionaEventoActivity.this, InscreverParticipanteEventoActivity.class);
+                intent.putExtra(SelecionaEventoActivity.EVENTO, lista.get(position));
+                startActivityForResult(intent, SelecionaEventoActivity.REQUEST_INSERCAO);
             }
         });
         rvEvento.setAdapter(adapter);
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_INSERCAO && resultCode == Activity.RESULT_OK && data != null){
-            Bundle bundleResultado = data.getExtras();
-            posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
-            participante = ListaInicialParticipante.getInstance().get(posicao);
-            lista = ListaInicialEvento.getEventosParticipante(participante);
-
-            final EventoAdapter adapter = new EventoAdapter(lista);
-            adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
-                @Override
-                public void onEventoClick(View view, int position) {
-                    Intent intent =  getIntent().setClass(SelecionaEventoActivity.this,InscreverParticipanteEventoActivity.class);
-                    intent.putExtra(SelecionaEventoActivity.EVENTO, ListaInicialEvento.getInstance().get(position));
-                    startActivityForResult(intent,SelecionaEventoActivity.REQUEST_INSERCAO);
-                }
-            });
-            rvEvento.setAdapter(adapter);
-        }
     }
 }
