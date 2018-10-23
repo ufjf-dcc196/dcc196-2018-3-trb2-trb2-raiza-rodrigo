@@ -83,13 +83,13 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="Descrição: "
-        app:layout_constraintBottom_toTopOf="@+id/evt_lista_ptc_inscricao"
+        app:layout_constraintBottom_toTopOf="@+id/evt_rcl_inscritos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/evt_lista_ptc_inscricao"
+        android:id="@+id/evt_rcl_inscritos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

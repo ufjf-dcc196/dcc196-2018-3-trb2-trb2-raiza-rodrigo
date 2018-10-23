@@ -1,5 +1,6 @@
 package com.example.raiza.semanacomputacao;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,11 +41,14 @@ public class InscreverParticipanteEventoActivity extends AppCompatActivity {
         btnInscrever.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                txtTitulo.setText("");
-                for (Participante p: ListaInicialParticipante.getInstance()) {
-                    if(p.getCpf().equals(participante.getCpf())){
-                        p.getEvento().add(evento);
-                        Toast.makeText(InscreverParticipanteEventoActivity.this, p.getUsuario() + " foi adicionado ao Evento.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                for (int i =0;i < ListaInicialParticipante.getInstance().size();i++) {
+                    if(ListaInicialParticipante.getInstance().get(i).getCpf().equals(participante.getCpf())){
+                        ListaInicialParticipante.getInstance().get(i).getEvento().add(evento);
+                        participante.getEvento().add(evento);
+                        intent.putExtra(ListarPtcActivity.PARTICIPANTE,participante);
+                        setResult(Activity.RESULT_OK,intent);
+                        Toast.makeText(InscreverParticipanteEventoActivity.this, evento.getTitulo() + " " +ListaInicialParticipante.getInstance().get(i).getUsuario() + " foi adicionado ao Evento.", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }

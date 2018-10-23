@@ -1,5 +1,6 @@
 package com.example.raiza.semanacomputacao;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,10 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class EditarParticipanteActivity extends AppCompatActivity {
+    public static final String EVENTO = "Evento";
+    private static final int REQUEST_INSCRICAO = 1;
     private EditText edtNome;
     private EditText edtCpf;
     private EditText edtEmail;
     private Button btnInscrever;
+    private Button btnListaEvento;
     private Participante participante;
 
 
@@ -39,5 +43,23 @@ public class EditarParticipanteActivity extends AppCompatActivity {
             }
         });
 
+        btnListaEvento = findViewById(R.id.ptc_lista_evt);
+        btnListaEvento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EditarParticipanteActivity.this, ListaEventoCadastradoActivity.class);
+                for(int i = 0; i < ListaInicialParticipante.getInstance().size();i++) {
+                    if (participante.getCpf().equals(ListaInicialParticipante.getInstance().get(i).getCpf())) {
+                        participante = ListaInicialParticipante.getInstance().get(i);
+                        break;
+                    }
+                }
+                intent.putExtra(ListarPtcActivity.PARTICIPANTE,participante);
+                startActivity(intent);
+            }
+        });
+
     }
+
+
 }
