@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ListaInicialParticipante.getInstance().get(0).getEvento().add(ListaInicialEvento.getInstance().get(0));
+        ListaInicialParticipante.getInstance().get(0).getEvento().add(ListaInicialEvento.getInstance().get(1));
         btnListarPtc = (Button) findViewById(R.id.btn_lista_ptc);
         btnListarPtc.setOnClickListener(new View.OnClickListener() {
             @Override

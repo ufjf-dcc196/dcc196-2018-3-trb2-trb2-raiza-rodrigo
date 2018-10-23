@@ -1,6 +1,8 @@
 package com.example.raiza.semanacomputacao;
 
-public class Evento {
+import java.io.Serializable;
+
+public class Evento implements Serializable {
     private String titulo;
     private String data;
     private String hora;

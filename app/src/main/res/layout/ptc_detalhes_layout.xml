@@ -65,7 +65,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/ptc_inscricao_evt"
+        android:id="@+id/btn_ptc_inscricao_evt"
         android:layout_width="111dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="72dp"

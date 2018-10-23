@@ -15,22 +15,36 @@
         private List<Participante> participante;
         private OnParticipanteClickListener listener;
 
+
     public interface OnParticipanteClickListener {
         void onParticipanteClick(View view, int position);
+        void onLongParticipanteClick(View view, int position);
     }
 
-    public void setOnShortParticipanteClickListener(OnParticipanteClickListener listener){
-            this.listener = listener;
+    public void setOnParticipanteClickListener(OnParticipanteClickListener listener){
+        this.listener = listener;
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView txtNome;
 
         public ViewHolder (View itemView) {
             super(itemView);
             txtNome = (TextView) itemView.findViewById(R.id.txt_ptc_nome);
 
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (listener!=null){
+                        int position = getAdapterPosition();
+                        if(position!= RecyclerView.NO_POSITION){
+                            listener.onLongParticipanteClick(view, position);
+                        }
+                    }
+                return false;
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener(){
 
@@ -56,6 +70,17 @@
                     listener.onParticipanteClick(v, position);
                 }
             }
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (listener!=null){
+                int position = getAdapterPosition();
+                if(position!= RecyclerView.NO_POSITION){
+                    listener.onLongParticipanteClick(view, position);
+                }
+            }
+            return true;
         }
     }
 

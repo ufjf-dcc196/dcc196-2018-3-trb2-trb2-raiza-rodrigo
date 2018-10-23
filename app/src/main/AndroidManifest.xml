@@ -21,7 +21,11 @@
         <activity android:name=".ListarPtcActivity" />
         <activity android:name=".CadastrarParticipanteActivity" />
         <activity android:name=".CadastrarEventoActivity" />
-        <activity android:name=".ListarEvtActivity"></activity>
+        <activity android:name=".ListarEvtActivity" />
+        <activity android:name=".EditarParticipanteActivity" />
+        <activity android:name=".InscreverParticipanteEventoActivity" />
+        <activity android:name=".SelecionaEventoActivity" />
+        <activity android:name=".ListaEventoCadastradoActivity"></activity>
     </application>
 
 </manifest>

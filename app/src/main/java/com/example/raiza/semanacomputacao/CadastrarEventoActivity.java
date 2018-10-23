@@ -20,9 +20,9 @@ public class CadastrarEventoActivity extends AppCompatActivity {
         setContentView(R.layout.evt_cadastro_layout);
         edtTitulo = (EditText) findViewById(R.id.evt_edt_titulo);
         edtData = (EditText) findViewById(R.id.evt_edt_dia);
-        edtHora = (EditText) findViewById(R.id.evt_edt_hora_inscricao);
-        edtFacilitador = (EditText) findViewById(R.id.evt_edt_facilitador_inscricao);
-        edtDescricao = (EditText) findViewById(R.id.evt_edt_descricao_inscricao);
+        edtHora = (EditText) findViewById(R.id.evt_txt_hora_inscricao);
+        edtFacilitador = (EditText) findViewById(R.id.evt_txt_facilitador_inscricao);
+        edtDescricao = (EditText) findViewById(R.id.evt_txt_descricao_inscricao);
 
         btnSalvar = findViewById(R.id.evt_btn_salvar);
         btnSalvar.setOnClickListener(new View.OnClickListener() {

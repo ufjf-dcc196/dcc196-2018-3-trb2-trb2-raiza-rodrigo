@@ -1,5 +1,6 @@
 package com.example.raiza.semanacomputacao;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +12,10 @@ import android.widget.Toast;
 
 
 public class ListarPtcActivity extends AppCompatActivity {
+    public static final String PARTICIPANTE = "Participante";
+
+
+
     public RecyclerView rvParticipante;
 
     @Override
@@ -25,7 +30,7 @@ public class ListarPtcActivity extends AppCompatActivity {
         rvParticipante.setLayoutManager(layout);
 
         final ParticipanteAdapter adapter = new ParticipanteAdapter(ListaInicialParticipante.getInstance());
-        adapter.setOnShortParticipanteClickListener(new ParticipanteAdapter.OnParticipanteClickListener() {
+        adapter.setOnParticipanteClickListener(new ParticipanteAdapter.OnParticipanteClickListener() {
             @Override
             public void onParticipanteClick(View view, int position) {
                 Toast.makeText(ListarPtcActivity.this, ListaInicialParticipante.getInstance().get(position).getUsuario(), Toast.LENGTH_SHORT).show();
@@ -35,7 +40,15 @@ public class ListarPtcActivity extends AppCompatActivity {
                 ListaInicialParticipante.getInstance().add(new Participante("item","",""));
                 adapter.notifyItemChanged(ListaInicialParticipante.getInstance().size()-1);
             }
+
+            @Override
+            public void onLongParticipanteClick(View view, int position) {
+                Intent intent = new Intent(ListarPtcActivity.this, EditarParticipanteActivity.class);
+                intent.putExtra(ListarPtcActivity.PARTICIPANTE, (Participante) ListaInicialParticipante.getInstance().get(position));
+                startActivity(intent);
+            }
         });
+
         rvParticipante.setAdapter(adapter);
     }
 }
