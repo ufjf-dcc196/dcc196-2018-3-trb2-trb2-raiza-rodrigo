@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class ListarPtcActivity extends AppCompatActivity {
     public static final String PARTICIPANTE = "Participante";
-
+    public static final String POSICAO_PARTICIPANTE = "Posição Participante";
 
 
     public RecyclerView rvParticipante;
@@ -23,11 +23,9 @@ public class ListarPtcActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ptc_lista_layout);
         rvParticipante = (RecyclerView) findViewById(R.id.ptc_rcl_lista);
-      //  rvParticipante.setLayoutManager(new LinearLayoutManager(this));
+        rvParticipante.setLayoutManager(new LinearLayoutManager(this));
 
-        RecyclerView.LayoutManager layout = new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false);
-        rvParticipante.setLayoutManager(layout);
+
 
         final ParticipanteAdapter adapter = new ParticipanteAdapter(ListaInicialParticipante.getInstance());
         adapter.setOnParticipanteClickListener(new ParticipanteAdapter.OnParticipanteClickListener() {
@@ -45,6 +43,7 @@ public class ListarPtcActivity extends AppCompatActivity {
             public void onLongParticipanteClick(View view, int position) {
                 Intent intent = new Intent(ListarPtcActivity.this, EditarParticipanteActivity.class);
                 intent.putExtra(ListarPtcActivity.PARTICIPANTE, (Participante) ListaInicialParticipante.getInstance().get(position));
+                intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE, position);
                 startActivity(intent);
             }
         });

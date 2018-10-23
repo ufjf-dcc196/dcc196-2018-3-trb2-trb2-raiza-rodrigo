@@ -1,5 +1,7 @@
 package com.example.raiza.semanacomputacao;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,22 @@ public class ListaInicialEvento {
         }
 
         return evento;
-
+    }
+    public static List<Evento> getEventosParticipante(Participante p){
+        List<Evento> lista = new ArrayList<>();
+        boolean aux = true;
+        for(int j = 0; j < evento.size();j++){
+            for(int i = 0 ; i < p.getEvento().size();i++){
+                if(evento.get(j).getTitulo().equals(p.getEvento().get(i).getTitulo() )){
+                    aux = false;
+                    break;
+                }
+            }
+            if(aux){
+                lista.add(evento.get(j));
+            }else
+                aux = true;
+        }
+        return lista;
     }
 }

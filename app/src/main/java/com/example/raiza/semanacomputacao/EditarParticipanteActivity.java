@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditarParticipanteActivity extends AppCompatActivity {
     public static final String EVENTO = "Evento";
@@ -16,7 +17,9 @@ public class EditarParticipanteActivity extends AppCompatActivity {
     private EditText edtEmail;
     private Button btnInscrever;
     private Button btnListaEvento;
+    private Button btnEditar;
     private Participante participante;
+    private int posicao;
 
 
     @Override
@@ -27,9 +30,12 @@ public class EditarParticipanteActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.ptc_edt_cpf);
         edtCpf = findViewById(R.id.ptc_edt_email);
         btnInscrever = findViewById(R.id.btn_ptc_inscricao_evt);
-        final Intent intent = getIntent();
 
+        final Intent intent = getIntent();
+        Bundle bundleResultado = intent.getExtras();
+        posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
         participante = (Participante)  intent.getSerializableExtra(ListarPtcActivity.PARTICIPANTE);
+
         edtNome.setText(participante.getUsuario());
         edtCpf.setText(participante.getCpf());
         edtEmail.setText(participante.getEmail());
@@ -37,8 +43,7 @@ public class EditarParticipanteActivity extends AppCompatActivity {
         btnInscrever.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EditarParticipanteActivity.this, SelecionaEventoActivity.class);
-                intent.putExtra(ListarPtcActivity.PARTICIPANTE,participante);
+                Intent intent = getIntent().setClass(EditarParticipanteActivity.this, SelecionaEventoActivity.class);
                 startActivity(intent);
             }
         });
@@ -48,14 +53,27 @@ public class EditarParticipanteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditarParticipanteActivity.this, ListaEventoCadastradoActivity.class);
-                for(int i = 0; i < ListaInicialParticipante.getInstance().size();i++) {
-                    if (participante.getCpf().equals(ListaInicialParticipante.getInstance().get(i).getCpf())) {
-                        participante = ListaInicialParticipante.getInstance().get(i);
-                        break;
-                    }
-                }
+                Bundle bundleResultado = getIntent().getExtras();
+                posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
+                participante = ListaInicialParticipante.getInstance().get(posicao);
                 intent.putExtra(ListarPtcActivity.PARTICIPANTE,participante);
+                intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE,posicao);
                 startActivity(intent);
+            }
+        });
+
+        btnEditar = findViewById(R.id.btn_ptc_editar);
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundleResultado = getIntent().getExtras();
+                posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
+                ListaInicialParticipante.getInstance().get(posicao).setUsuario(String.valueOf(edtNome.getText()));
+                ListaInicialParticipante.getInstance().get(posicao).setEmail(String.valueOf(edtEmail.getText()));
+                ListaInicialParticipante.getInstance().get(posicao).setCpf(String.valueOf(edtCpf.getText()));
+                Toast.makeText(EditarParticipanteActivity.this, "Edição Concluida", Toast.LENGTH_SHORT).show();
+
+
             }
         });
 

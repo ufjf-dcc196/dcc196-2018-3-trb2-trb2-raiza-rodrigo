@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
+
 
 public class ListaEventoCadastradoActivity extends AppCompatActivity {
         private RecyclerView rvEvento;
@@ -17,6 +17,7 @@ public class ListaEventoCadastradoActivity extends AppCompatActivity {
         setContentView(R.layout.evt_inscritos_layout);
         rvEvento = (RecyclerView) findViewById(R.id.evt_rcl_inscritos);
         rvEvento.setLayoutManager(new LinearLayoutManager(this));
+
         Intent intent = getIntent();
         participante = (Participante)intent.getSerializableExtra(ListarPtcActivity.PARTICIPANTE);
 
@@ -25,8 +26,11 @@ public class ListaEventoCadastradoActivity extends AppCompatActivity {
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
             public void onEventoClick(View view, int position) {
-                Toast.makeText(ListaEventoCadastradoActivity.this, "Entrou", Toast.LENGTH_SHORT).show();
+                Bundle bundleResultado = getIntent().getExtras();
+                int posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
+                ListaInicialParticipante.getInstance().get(posicao).getEvento().remove(position);
                 participante.getEvento().remove(position);
+                adapter.notifyItemRemoved(position);
             }
         });
         rvEvento.setAdapter(adapter);
