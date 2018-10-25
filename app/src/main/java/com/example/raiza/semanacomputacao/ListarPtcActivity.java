@@ -31,12 +31,9 @@ public class ListarPtcActivity extends AppCompatActivity {
         adapter.setOnParticipanteClickListener(new ParticipanteAdapter.OnParticipanteClickListener() {
             @Override
             public void onParticipanteClick(View view, int position) {
-                Toast.makeText(ListarPtcActivity.this, ListaInicialParticipante.getInstance().get(position).getUsuario(), Toast.LENGTH_SHORT).show();
-                ListaInicialParticipante.getInstance().set(position, ListaInicialParticipante.getInstance().get(position));
-                ListaInicialParticipante.getInstance().add(new Participante("item","",""));
-                adapter.notifyItemChanged(position);
-                ListaInicialParticipante.getInstance().add(new Participante("item","",""));
-                adapter.notifyItemChanged(ListaInicialParticipante.getInstance().size()-1);
+                Intent intent = new Intent(ListarPtcActivity.this,DadosParticipanteActivity.class);
+                intent.putExtra(ListarPtcActivity.PARTICIPANTE,(Participante) ListaInicialParticipante.getInstance().get(position));
+                startActivity(intent);
             }
 
             @Override

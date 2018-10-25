@@ -23,12 +23,7 @@ public class ListarEvtActivity extends AppCompatActivity {
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
             public void onEventoClick(View view, int position) {
-                Toast.makeText(ListarEvtActivity.this, ListaInicialEvento.getInstance().get(position).getTitulo(), Toast.LENGTH_SHORT).show();
-                ListaInicialEvento.getInstance().set(position, ListaInicialEvento.getInstance().get(position));
-                ListaInicialEvento.getInstance().add(new Evento("item","","","",""));
-                adapter.notifyItemChanged(position);
-                ListaInicialEvento.getInstance().add(new Evento("item","","","",""));
-                adapter.notifyItemChanged(ListaInicialEvento.getInstance().size()-1);
+
             }
         });
         rvEvento.setAdapter(adapter);

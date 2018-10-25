@@ -23,6 +23,7 @@ public class ListaEventoCadastradoActivity extends AppCompatActivity {
 
 
         final EventoAdapter adapter = new EventoAdapter(participante.getEvento());
+
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
             public void onEventoClick(View view, int position) {
