@@ -60,7 +60,7 @@
         android:layout_marginBottom="72dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:text="Listar Eventos"
+        android:text="Inscrições realizadas"
         app:layout_constraintBottom_toTopOf="@+id/btn_ptc_editar"
         app:layout_constraintStart_toStartOf="parent" />
 
