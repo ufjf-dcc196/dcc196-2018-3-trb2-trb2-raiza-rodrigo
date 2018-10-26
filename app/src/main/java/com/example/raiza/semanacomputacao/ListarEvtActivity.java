@@ -1,5 +1,6 @@
 package com.example.raiza.semanacomputacao;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.Toast;
 
 public class ListarEvtActivity extends AppCompatActivity {
+    public static final String EVENTO = "Evento";
+    public static final String POSICAO_EVENTO = "Posição Evento";
     public RecyclerView rvEvento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +21,13 @@ public class ListarEvtActivity extends AppCompatActivity {
         rvEvento = (RecyclerView) findViewById(R.id.evt_rcl_lista);
         rvEvento.setLayoutManager(new LinearLayoutManager(this));
 
-
         final EventoAdapter adapter = new EventoAdapter(ListaInicialEvento.getInstance());
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
             public void onEventoClick(View view, int position) {
-
+                Intent intent = new Intent(ListarEvtActivity.this,DadosEventoActivity.class);
+                intent.putExtra(ListarEvtActivity.EVENTO,(Evento) ListaInicialEvento.getInstance().get(position));
+                startActivity(intent);
             }
         });
         rvEvento.setAdapter(adapter);
