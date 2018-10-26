@@ -18,9 +18,6 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_LISTAPTC = 1;
-    private static final int REQUEST_CADASTRAPTC = 2;
-    private static final int REQUEST_CADASTRAEVT = 3;
-    private static final int REQUEST_LISTAEVT = 4;
     private Button btnListarPtc;
     private Button btnListarEvt;
     private Button btnCadastrarPtc;
@@ -38,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ListarPtcActivity.class);
-                startActivityForResult(intent, MainActivity.REQUEST_LISTAPTC);
+                startActivity(intent);
             }
         });
 
@@ -47,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ListarEvtActivity.class);
-                startActivityForResult(intent, MainActivity.REQUEST_LISTAEVT);
+                startActivity(intent);
             }
         });
 
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CadastrarParticipanteActivity.class);
-                startActivityForResult(intent, MainActivity.REQUEST_CADASTRAPTC);
+                startActivity(intent);
             }
         });
 
@@ -65,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CadastrarEventoActivity.class);
-                startActivityForResult(intent, MainActivity.REQUEST_CADASTRAEVT);
+                startActivity(intent);
             }
         });
 
