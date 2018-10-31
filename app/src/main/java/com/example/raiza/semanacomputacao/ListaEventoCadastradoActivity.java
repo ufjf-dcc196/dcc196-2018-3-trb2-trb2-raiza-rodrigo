@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import java.util.List;
+
 
 public class ListaEventoCadastradoActivity extends AppCompatActivity {
         private RecyclerView rvEvento;
@@ -29,6 +31,9 @@ public class ListaEventoCadastradoActivity extends AppCompatActivity {
             public void onEventoClick(View view, int position) {
                 Bundle bundleResultado = getIntent().getExtras();
                 int posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
+                int i=ListaInicialEvento.getInstance().indexOf(ListaInicialParticipante.getInstance().get(posicao).getEvento().get(position));
+
+                ListaInicialEvento.getInstance().get(i).getParticipante().remove(ListaInicialParticipante.getInstance().get(posicao));
                 ListaInicialParticipante.getInstance().get(posicao).getEvento().remove(position);
                 participante.getEvento().remove(position);
                 adapter.notifyItemRemoved(position);

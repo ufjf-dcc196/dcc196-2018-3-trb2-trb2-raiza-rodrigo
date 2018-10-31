@@ -1,6 +1,7 @@
 package com.example.raiza.semanacomputacao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Evento implements Serializable {
     private String titulo;
@@ -8,6 +9,7 @@ public class Evento implements Serializable {
     private String hora;
     private String facilitador;
     private String descricao;
+    private ArrayList<Participante> participante;
 
     public Evento(String titulo, String data, String hora, String facilitador, String descricao) {
         this.titulo = titulo;
@@ -15,9 +17,19 @@ public class Evento implements Serializable {
         this.hora = hora;
         this.facilitador = facilitador;
         this.descricao = descricao;
+        this.participante = new ArrayList<>();
     }
 
     public Evento() {
+        this.participante = new ArrayList<>();
+    }
+
+    public ArrayList<Participante> getParticipante() {
+        return participante;
+    }
+
+    public void setParticipante(ArrayList<Participante> participante) {
+        this.participante = participante;
     }
 
     public String getTitulo() {

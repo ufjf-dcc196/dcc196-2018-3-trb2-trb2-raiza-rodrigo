@@ -48,8 +48,12 @@ public class InscreverParticipanteEventoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                ListaInicialParticipante.getInstance().get(posicao).getEvento().add(evento);
-                participante.getEvento().add(evento);
+                Bundle resultado = getIntent().getExtras();
+                int i = resultado.getInt(SelecionaEventoActivity.I);
+                ListaInicialParticipante.getInstance().get(posicao).getEvento().add(ListaInicialEvento.getInstance().get(i));
+                participante.getEvento().add(ListaInicialEvento.getInstance().get(i));
+
+                ListaInicialEvento.getInstance().get(i).getParticipante().add(ListaInicialParticipante.getInstance().get(posicao));
                 intent.putExtra(ListarPtcActivity.PARTICIPANTE,participante);
                 intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE,posicao);
                 setResult(Activity.RESULT_OK,intent);

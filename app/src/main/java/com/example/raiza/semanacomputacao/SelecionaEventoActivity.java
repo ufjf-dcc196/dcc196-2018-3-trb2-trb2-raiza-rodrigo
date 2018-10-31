@@ -15,6 +15,7 @@ import java.util.List;
 public class SelecionaEventoActivity extends AppCompatActivity {
     public static final String EVENTO = "Evento";
     private static final int REQUEST_INSERCAO = 1;
+    public static final String I =  "i";
     private RecyclerView rvEvento;
     private int posicao;
     private Participante participante;
@@ -51,7 +52,9 @@ public class SelecionaEventoActivity extends AppCompatActivity {
             @Override
             public void onEventoClick(View view, int position) {
                 Intent intent = getIntent().setClass(SelecionaEventoActivity.this, InscreverParticipanteEventoActivity.class);
+                int i = ListaInicialEvento.getInstance().indexOf(lista.get(position));
                 intent.putExtra(SelecionaEventoActivity.EVENTO, lista.get(position));
+                intent.putExtra(SelecionaEventoActivity.I, i);
                 startActivityForResult(intent, SelecionaEventoActivity.REQUEST_INSERCAO);
             }
         });
