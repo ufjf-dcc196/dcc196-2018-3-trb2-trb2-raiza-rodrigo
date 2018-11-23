@@ -1,4 +1,4 @@
-package com.example.raiza.semanacomputacao;
+package com.example.raiza.semanacomputacao.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.raiza.semanacomputacao.Classes.Evento;
+import com.example.raiza.semanacomputacao.ListaInicialEvento;
+import com.example.raiza.semanacomputacao.R;
 
 public class CadastrarEventoActivity extends AppCompatActivity {
     private EditText edtTitulo;

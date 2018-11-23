@@ -1,5 +1,7 @@
 package com.example.raiza.semanacomputacao;
 
+import com.example.raiza.semanacomputacao.Classes.Participante;
+
 import java.util.ArrayList;
 import java.util.List;
 

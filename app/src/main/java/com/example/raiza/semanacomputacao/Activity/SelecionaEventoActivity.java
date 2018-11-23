@@ -1,4 +1,4 @@
-package com.example.raiza.semanacomputacao;
+package com.example.raiza.semanacomputacao.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 
-import java.util.ArrayList;
+import com.example.raiza.semanacomputacao.Adapter.EventoAdapter;
+import com.example.raiza.semanacomputacao.Classes.Evento;
+import com.example.raiza.semanacomputacao.Classes.Participante;
+import com.example.raiza.semanacomputacao.ListaInicialEvento;
+import com.example.raiza.semanacomputacao.ListaInicialParticipante;
+import com.example.raiza.semanacomputacao.R;
+
 import java.util.List;
 
 public class SelecionaEventoActivity extends AppCompatActivity {

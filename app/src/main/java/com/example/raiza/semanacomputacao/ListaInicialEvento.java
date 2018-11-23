@@ -2,6 +2,9 @@ package com.example.raiza.semanacomputacao;
 
 
 
+import com.example.raiza.semanacomputacao.Classes.Evento;
+import com.example.raiza.semanacomputacao.Classes.Participante;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +42,6 @@ public class ListaInicialEvento {
                     aux = true;
             }
             return lista;
-
 
     }
 }

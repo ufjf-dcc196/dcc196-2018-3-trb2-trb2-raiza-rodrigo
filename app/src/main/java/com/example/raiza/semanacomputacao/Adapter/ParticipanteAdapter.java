@@ -1,4 +1,4 @@
-    package com.example.raiza.semanacomputacao;
+    package com.example.raiza.semanacomputacao.Adapter;
 
     import android.content.Context;
     import android.support.annotation.NonNull;
@@ -7,6 +7,9 @@
     import android.view.View;
     import android.view.ViewGroup;
     import android.widget.TextView;
+
+    import com.example.raiza.semanacomputacao.Classes.Participante;
+    import com.example.raiza.semanacomputacao.R;
 
     import java.util.List;
 

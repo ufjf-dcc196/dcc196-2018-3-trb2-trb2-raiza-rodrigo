@@ -18,16 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListarPtcActivity" />
-        <activity android:name=".CadastrarParticipanteActivity" />
-        <activity android:name=".CadastrarEventoActivity" />
-        <activity android:name=".ListarEvtActivity" />
-        <activity android:name=".EditarParticipanteActivity" />
-        <activity android:name=".InscreverParticipanteEventoActivity" />
-        <activity android:name=".SelecionaEventoActivity" />
-        <activity android:name=".ListaEventoCadastradoActivity" />
-        <activity android:name=".DadosParticipanteActivity" />
-        <activity android:name=".DadosEventoActivity"></activity>
+        <activity android:name=".Activity.ListarPtcActivity" />
+        <activity android:name=".Activity.CadastrarParticipanteActivity" />
+        <activity android:name=".Activity.CadastrarEventoActivity" />
+        <activity android:name=".Activity.ListarEvtActivity" />
+        <activity android:name=".Activity.EditarParticipanteActivity" />
+        <activity android:name=".Activity.InscreverParticipanteEventoActivity" />
+        <activity android:name=".Activity.SelecionaEventoActivity" />
+        <activity android:name=".Activity.ListaEventoCadastradoActivity" />
+        <activity android:name=".Activity.DadosParticipanteActivity" />
+        <activity android:name=".Activity.DadosEventoActivity"></activity>
     </application>
 
 </manifest>

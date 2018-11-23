@@ -1,4 +1,4 @@
-package com.example.raiza.semanacomputacao;
+package com.example.raiza.semanacomputacao.Classes;
 
 import java.io.Serializable;
 import java.util.ArrayList;

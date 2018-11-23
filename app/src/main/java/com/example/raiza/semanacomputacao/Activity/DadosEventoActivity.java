@@ -1,4 +1,4 @@
-package com.example.raiza.semanacomputacao;
+package com.example.raiza.semanacomputacao.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
+
+import com.example.raiza.semanacomputacao.Adapter.ParticipanteAdapter;
+import com.example.raiza.semanacomputacao.Classes.Evento;
+import com.example.raiza.semanacomputacao.R;
 
 public class DadosEventoActivity extends AppCompatActivity {
 

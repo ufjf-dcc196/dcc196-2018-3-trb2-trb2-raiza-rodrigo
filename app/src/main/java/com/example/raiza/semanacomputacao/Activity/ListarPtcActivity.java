@@ -1,14 +1,16 @@
-package com.example.raiza.semanacomputacao;
+package com.example.raiza.semanacomputacao.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
+import com.example.raiza.semanacomputacao.Adapter.ParticipanteAdapter;
+import com.example.raiza.semanacomputacao.Classes.Participante;
+import com.example.raiza.semanacomputacao.ListaInicialParticipante;
+import com.example.raiza.semanacomputacao.R;
 
 
 public class ListarPtcActivity extends AppCompatActivity {

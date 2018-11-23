@@ -1,4 +1,4 @@
-package com.example.raiza.semanacomputacao;
+package com.example.raiza.semanacomputacao.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.util.List;
+import com.example.raiza.semanacomputacao.Adapter.EventoAdapter;
+import com.example.raiza.semanacomputacao.Classes.Participante;
+import com.example.raiza.semanacomputacao.ListaInicialEvento;
+import com.example.raiza.semanacomputacao.ListaInicialParticipante;
+import com.example.raiza.semanacomputacao.R;
 
 
 public class ListaEventoCadastradoActivity extends AppCompatActivity {
@@ -31,7 +35,7 @@ public class ListaEventoCadastradoActivity extends AppCompatActivity {
             public void onEventoClick(View view, int position) {
                 Bundle bundleResultado = getIntent().getExtras();
                 int posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
-                int i=ListaInicialEvento.getInstance().indexOf(ListaInicialParticipante.getInstance().get(posicao).getEvento().get(position));
+                int i= ListaInicialEvento.getInstance().indexOf(ListaInicialParticipante.getInstance().get(posicao).getEvento().get(position));
 
                 ListaInicialEvento.getInstance().get(i).getParticipante().remove(ListaInicialParticipante.getInstance().get(posicao));
                 ListaInicialParticipante.getInstance().get(posicao).getEvento().remove(position);

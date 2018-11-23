@@ -4,17 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
-import java.util.Random;
+import com.example.raiza.semanacomputacao.Activity.CadastrarEventoActivity;
+import com.example.raiza.semanacomputacao.Activity.CadastrarParticipanteActivity;
+import com.example.raiza.semanacomputacao.Activity.ListarEvtActivity;
+import com.example.raiza.semanacomputacao.Activity.ListarPtcActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_LISTAPTC = 1;
