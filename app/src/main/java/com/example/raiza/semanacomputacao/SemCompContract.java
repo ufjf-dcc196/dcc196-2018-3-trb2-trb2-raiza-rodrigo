@@ -52,7 +52,7 @@ public class SemCompContract {
                         +"CONSTRAINT FK_PARTICIPANTE_ID FOREIGN KEY("+EventoParticipante.COLUMN_NAME_PARTICIPANTE+") " +
                         "REFERENCES "+Evento.TABLE_NAME+"("+Evento._ID+"), "
                         +"CONSTRAINT FK_EVENTO_ID FOREIGN KEY("+EventoParticipante.COLUMN_NAME_EVENTO+") " +
-                        "REFERENCES "+Participante.TABLE_NAME+"("+Participante._ID+");";
+                        "REFERENCES "+Participante.TABLE_NAME+"("+Participante._ID+"));";
 
         public final static String DROP_EventoParticipante = "DROP TABLE IF EXISTS "
                 + EventoParticipante.TABLE_NAME;

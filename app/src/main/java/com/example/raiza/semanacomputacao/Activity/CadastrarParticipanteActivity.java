@@ -1,5 +1,6 @@
 package com.example.raiza.semanacomputacao.Activity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.example.raiza.semanacomputacao.Classes.Participante;
 import com.example.raiza.semanacomputacao.ListaInicialParticipante;
 import com.example.raiza.semanacomputacao.R;
+import com.example.raiza.semanacomputacao.SemCompDbHelper;
 
 public class CadastrarParticipanteActivity extends AppCompatActivity {
     private EditText edtNome;
@@ -18,6 +20,7 @@ public class CadastrarParticipanteActivity extends AppCompatActivity {
     private EditText edtCpf;
     private Button btnSalvar;
     private TextView teste;
+    private SemCompDbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +29,14 @@ public class CadastrarParticipanteActivity extends AppCompatActivity {
         edtNome = (EditText) findViewById(R.id.ptc_edt_nome);
         edtEmail = (EditText) findViewById(R.id.ptc_edt_email);
         edtCpf = (EditText) findViewById(R.id.ptc_edt_cpf);
+        dbHelper = new SemCompDbHelper(getApplicationContext());
 
         btnSalvar = findViewById(R.id.btn_ptc_salvar);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                ListaInicialParticipante.getInstance().add(new Participante(String.valueOf(edtNome.getText()),String.valueOf(edtEmail.getText()),String.valueOf(edtCpf.getText())));
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                SemCompDbHelper.InserirParticipante(db,String.valueOf(edtNome.getText()),String.valueOf(edtEmail.getText()),String.valueOf(edtCpf.getText()));
                 Toast.makeText(CadastrarParticipanteActivity.this, edtNome.getText() + " Cadastrado com sucesso, O numero de cadastrados é " + ListaInicialParticipante.getInstance().size(), Toast.LENGTH_SHORT).show();
                 edtCpf.setText("");
                 edtEmail.setText("");

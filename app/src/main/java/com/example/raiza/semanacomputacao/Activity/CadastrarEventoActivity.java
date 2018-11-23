@@ -1,5 +1,6 @@
 package com.example.raiza.semanacomputacao.Activity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import com.example.raiza.semanacomputacao.Classes.Evento;
 import com.example.raiza.semanacomputacao.ListaInicialEvento;
 import com.example.raiza.semanacomputacao.R;
+import com.example.raiza.semanacomputacao.SemCompDbHelper;
 
 public class CadastrarEventoActivity extends AppCompatActivity {
     private EditText edtTitulo;
@@ -18,6 +20,8 @@ public class CadastrarEventoActivity extends AppCompatActivity {
     private EditText edtFacilitador;
     private EditText edtDescricao;
     private Button btnSalvar;
+    private SemCompDbHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +31,14 @@ public class CadastrarEventoActivity extends AppCompatActivity {
         edtHora = (EditText) findViewById(R.id.evt_txt_hora_inscricao);
         edtFacilitador = (EditText) findViewById(R.id.evt_txt_facilitador_inscricao);
         edtDescricao = (EditText) findViewById(R.id.evt_txt_descricao_inscricao);
+        dbHelper = new SemCompDbHelper(getApplicationContext());
 
         btnSalvar = findViewById(R.id.evt_btn_salvar);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                ListaInicialEvento.getInstance().add(new Evento(String.valueOf(edtTitulo.getText()),String.valueOf(edtData.getText()),String.valueOf(edtHora.getText()),String.valueOf(edtFacilitador.getText()),String.valueOf(edtDescricao.getText())));
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                SemCompDbHelper.InserirEvento(db,String.valueOf(edtTitulo.getText()),String.valueOf(edtData.getText()),String.valueOf(edtHora.getText()),String.valueOf(edtFacilitador.getText()),String.valueOf(edtDescricao.getText()));
                 Toast.makeText(CadastrarEventoActivity.this, edtTitulo.getText() + " Cadastrado com sucesso, O numero de cadastrados é " + ListaInicialEvento.getInstance().size(), Toast.LENGTH_SHORT).show();
                 edtTitulo.setText("");
                 edtData.setText("");
