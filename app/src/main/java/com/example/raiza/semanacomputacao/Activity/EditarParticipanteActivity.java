@@ -1,6 +1,7 @@
 package com.example.raiza.semanacomputacao.Activity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 import com.example.raiza.semanacomputacao.Classes.Participante;
 import com.example.raiza.semanacomputacao.ListaInicialParticipante;
 import com.example.raiza.semanacomputacao.R;
+import com.example.raiza.semanacomputacao.SemCompContract;
+import com.example.raiza.semanacomputacao.SemCompDbHelper;
 
 public class EditarParticipanteActivity extends AppCompatActivity {
     public static final String EVENTO = "Evento";
@@ -21,27 +24,26 @@ public class EditarParticipanteActivity extends AppCompatActivity {
     private Button btnInscrever;
     private Button btnListaEvento;
     private Button btnEditar;
-    private Participante participante;
-    private int posicao;
+    private long posicao;
+    private SemCompDbHelper dbHelper;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ptc_detalhes_layout);
+        dbHelper = new SemCompDbHelper(getApplicationContext());
         edtNome = findViewById(R.id.ptc_edt_nome);
-        edtEmail = findViewById(R.id.ptc_edt_cpf);
-        edtCpf = findViewById(R.id.ptc_edt_email);
+        edtEmail = findViewById(R.id.ptc_edt_email);
+        edtCpf = findViewById(R.id.ptc_edt_cpf);
         btnInscrever = findViewById(R.id.btn_ptc_inscricao_evt);
 
         final Intent intent = getIntent();
         Bundle bundleResultado = intent.getExtras();
-        posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
-        participante = (Participante)  intent.getSerializableExtra(ListarPtcActivity.PARTICIPANTE);
+        posicao = bundleResultado.getLong(ListarPtcActivity.POSICAO_PARTICIPANTE);
 
-        edtNome.setText(participante.getUsuario());
-        edtCpf.setText(participante.getCpf());
-        edtEmail.setText(participante.getEmail());
+        preencherCampos();
 
         btnInscrever.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +60,6 @@ public class EditarParticipanteActivity extends AppCompatActivity {
                 Intent intent = new Intent(EditarParticipanteActivity.this, ListaEventoCadastradoActivity.class);
                 Bundle bundleResultado = getIntent().getExtras();
                 posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
-                participante = ListaInicialParticipante.getInstance().get(posicao);
-                intent.putExtra(ListarPtcActivity.PARTICIPANTE,participante);
                 intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE,posicao);
                 startActivity(intent);
             }
@@ -69,12 +69,10 @@ public class EditarParticipanteActivity extends AppCompatActivity {
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundleResultado = getIntent().getExtras();
-                posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
-                ListaInicialParticipante.getInstance().get(posicao).setUsuario(String.valueOf(edtNome.getText()));
-                ListaInicialParticipante.getInstance().get(posicao).setEmail(String.valueOf(edtEmail.getText()));
-                ListaInicialParticipante.getInstance().get(posicao).setCpf(String.valueOf(edtCpf.getText()));
-                Toast.makeText(EditarParticipanteActivity.this, "Edição Concluida", Toast.LENGTH_SHORT).show();
+                //ListaInicialParticipante.getInstance().get(posicao).setUsuario(String.valueOf(edtNome.getText()));
+                //ListaInicialParticipante.getInstance().get(posicao).setEmail(String.valueOf(edtEmail.getText()));
+                //ListaInicialParticipante.getInstance().get(posicao).setCpf(String.valueOf(edtCpf.getText()));
+                //Toast.makeText(EditarParticipanteActivity.this, "Edição Concluida", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -82,5 +80,20 @@ public class EditarParticipanteActivity extends AppCompatActivity {
 
     }
 
+    private void preencherCampos(){
+
+        Cursor cursor = SemCompDbHelper.getCursorParticipanteId(dbHelper.getReadableDatabase(),String.valueOf(posicao));
+
+        int idxNome = cursor.getColumnIndexOrThrow(SemCompContract.Participante.COLUMN_NAME_NOME);
+        int idxEmail = cursor.getColumnIndexOrThrow(SemCompContract.Participante.COLUMN_NAME_EMAIL);
+        int idxCpf = cursor.getColumnIndexOrThrow(SemCompContract.Participante.COLUMN_NAME_CPF);
+
+        cursor.moveToFirst();
+
+        edtNome.setText(cursor.getString(idxNome));
+        edtEmail.setText( String.valueOf(cursor.getString(idxEmail)));
+        edtCpf.setText(cursor.getString(idxCpf));
+
+    }
 
 }

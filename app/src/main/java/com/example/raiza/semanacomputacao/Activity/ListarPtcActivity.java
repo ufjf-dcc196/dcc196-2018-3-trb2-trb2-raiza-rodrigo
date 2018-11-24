@@ -11,11 +11,14 @@ import com.example.raiza.semanacomputacao.Adapter.ParticipanteAdapter;
 import com.example.raiza.semanacomputacao.Classes.Participante;
 import com.example.raiza.semanacomputacao.ListaInicialParticipante;
 import com.example.raiza.semanacomputacao.R;
+import com.example.raiza.semanacomputacao.SemCompDbHelper;
 
 
 public class ListarPtcActivity extends AppCompatActivity {
     public static final String PARTICIPANTE = "Participante";
     public static final String POSICAO_PARTICIPANTE = "Posição Participante";
+    public SemCompDbHelper dbHelper;
+
 
 
     public RecyclerView rvParticipante;
@@ -27,22 +30,21 @@ public class ListarPtcActivity extends AppCompatActivity {
         rvParticipante = (RecyclerView) findViewById(R.id.ptc_rcl_lista);
         rvParticipante.setLayoutManager(new LinearLayoutManager(this));
 
+        dbHelper = new SemCompDbHelper(getApplicationContext());
 
-
-        final ParticipanteAdapter adapter = new ParticipanteAdapter(ListaInicialParticipante.getInstance());
+        final ParticipanteAdapter adapter = new ParticipanteAdapter(SemCompDbHelper.getCursorParticipante(dbHelper.getReadableDatabase()));
         adapter.setOnParticipanteClickListener(new ParticipanteAdapter.OnParticipanteClickListener() {
             @Override
             public void onParticipanteClick(View view, int position) {
                 Intent intent = new Intent(ListarPtcActivity.this,DadosParticipanteActivity.class);
-                intent.putExtra(ListarPtcActivity.PARTICIPANTE,(Participante) ListaInicialParticipante.getInstance().get(position));
+                intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE,adapter.getItemId(position));
                 startActivity(intent);
             }
 
             @Override
             public void onLongParticipanteClick(View view, int position) {
                 Intent intent = new Intent(ListarPtcActivity.this, EditarParticipanteActivity.class);
-                intent.putExtra(ListarPtcActivity.PARTICIPANTE, (Participante) ListaInicialParticipante.getInstance().get(position));
-                intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE, position);
+                intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE,adapter.getItemId(position));
                 startActivity(intent);
             }
         });

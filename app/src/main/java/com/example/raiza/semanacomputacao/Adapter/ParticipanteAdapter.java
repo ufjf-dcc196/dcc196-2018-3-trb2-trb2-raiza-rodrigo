@@ -1,6 +1,7 @@
     package com.example.raiza.semanacomputacao.Adapter;
 
     import android.content.Context;
+    import android.database.Cursor;
     import android.support.annotation.NonNull;
     import android.support.v7.widget.RecyclerView;
     import android.view.LayoutInflater;
@@ -10,12 +11,12 @@
 
     import com.example.raiza.semanacomputacao.Classes.Participante;
     import com.example.raiza.semanacomputacao.R;
+    import com.example.raiza.semanacomputacao.SemCompContract;
 
     import java.util.List;
 
     public class ParticipanteAdapter extends RecyclerView.Adapter<ParticipanteAdapter.ViewHolder>  {
-
-        private List<Participante> participante;
+        private Cursor cursor;
         private OnParticipanteClickListener listener;
 
 
@@ -27,6 +28,11 @@
     public void setOnParticipanteClickListener(OnParticipanteClickListener listener){
         this.listener = listener;
     }
+
+        public void SetCursor(Cursor c){
+            this.cursor = c;
+            notifyDataSetChanged();
+        }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
@@ -99,19 +105,27 @@
         }
 
 
-        public ParticipanteAdapter(List<Participante> participante) {
-            this.participante = participante;
+        public ParticipanteAdapter(Cursor c) {
+            this.cursor = c;
         }
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.txtNome.setText(participante.get(position).getUsuario());
-
+            int idxTitulo = cursor.getColumnIndexOrThrow(SemCompContract.Participante.COLUMN_NAME_NOME);
+            cursor.moveToPosition(position);
+            holder.txtNome.setText(String.valueOf(cursor.getString(idxTitulo)));
         }
 
         @Override
         public int getItemCount() {
-            return participante.size();
+            return cursor.getCount();
+        }
+
+        @Override
+        public long getItemId(int position) {
+            int idxID = cursor.getColumnIndexOrThrow(SemCompContract.Participante._ID);
+            cursor.moveToPosition(position);
+            return cursor.getLong(idxID);
         }
 
     }

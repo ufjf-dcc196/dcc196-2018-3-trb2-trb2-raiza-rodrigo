@@ -34,8 +34,8 @@ public class DadosEventoActivity extends AppCompatActivity {
         txtDescricao = (TextView) findViewById(R.id.txt_descricao_evento);
         rvParticipante = (RecyclerView) findViewById(R.id.TESTE);
         rvParticipante.setLayoutManager(new LinearLayoutManager(this));
-        final ParticipanteAdapter adapter = new ParticipanteAdapter(evento.getParticipante());
-        rvParticipante.setAdapter(adapter);
+        //final ParticipanteAdapter adapter = new ParticipanteAdapter(evento.getParticipante());
+        //rvParticipante.setAdapter(adapter);
         txtTitulo.setText(txtTitulo.getText() + evento.getTitulo());
         txtData.setText(txtData.getText()+evento.getData());
         txtHora.setText(txtHora.getText()+evento.getHora());

@@ -28,7 +28,7 @@ public class ListaEventoCadastradoActivity extends AppCompatActivity {
         participante = (Participante)intent.getSerializableExtra(ListarPtcActivity.PARTICIPANTE);
 
 
-        final EventoAdapter adapter = new EventoAdapter(participante.getEvento());
+        /*final EventoAdapter adapter = new EventoAdapter(participante.getEvento());
 
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
@@ -43,6 +43,6 @@ public class ListaEventoCadastradoActivity extends AppCompatActivity {
                 adapter.notifyItemRemoved(position);
             }
         });
-        rvEvento.setAdapter(adapter);
+        rvEvento.setAdapter(adapter);*/
     }
 }

@@ -53,7 +53,7 @@ public class SelecionaEventoActivity extends AppCompatActivity {
         participante = ListaInicialParticipante.getInstance().get(posicao);
         lista = ListaInicialEvento.getEventosParticipante(participante);
 
-        final EventoAdapter adapter = new EventoAdapter(lista);
+       /* final EventoAdapter adapter = new EventoAdapter(lista);
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
             public void onEventoClick(View view, int position) {
@@ -64,6 +64,6 @@ public class SelecionaEventoActivity extends AppCompatActivity {
                 startActivityForResult(intent, SelecionaEventoActivity.REQUEST_INSERCAO);
             }
         });
-        rvEvento.setAdapter(adapter);
+        rvEvento.setAdapter(adapter);*/
     }
 }

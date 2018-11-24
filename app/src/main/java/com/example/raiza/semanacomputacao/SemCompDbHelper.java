@@ -3,6 +3,7 @@ package com.example.raiza.semanacomputacao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -56,5 +57,79 @@ public class SemCompDbHelper extends  SQLiteOpenHelper{
         long id = db.insert(SemCompContract.Evento.TABLE_NAME,null, values);
         values.put(SemCompContract.Evento._ID, Long.valueOf(id));
         Log.i("DBINFO","registro criado com id: " + id);
+    }
+
+    public static Cursor getCursorEventos(SQLiteDatabase db) {
+        String[] visao = {
+                SemCompContract.Evento._ID,
+                SemCompContract.Evento.COLUMN_NAME_TITULO
+        };
+        return db.query(
+                SemCompContract.Evento.TABLE_NAME,
+                visao,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    public static Cursor getCursorParticipante(SQLiteDatabase db) {
+        String[] visao = {
+                SemCompContract.Participante._ID,
+                SemCompContract.Participante.COLUMN_NAME_NOME
+        };
+        return db.query(
+                SemCompContract.Participante.TABLE_NAME,
+                visao,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    public static Cursor getCursorParticipanteId(SQLiteDatabase db,String id) {
+
+        String[] visao = {
+                SemCompContract.Participante._ID,
+                SemCompContract.Participante.COLUMN_NAME_NOME,
+                SemCompContract.Participante.COLUMN_NAME_CPF,
+                SemCompContract.Participante.COLUMN_NAME_EMAIL,
+        };
+        String select = SemCompContract.Participante._ID+"=?";
+        String[] selectionArgs = {(id)};
+        return db.query(
+                SemCompContract.Participante.TABLE_NAME,
+                visao,
+                select,
+                selectionArgs,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    public static Cursor getCursorEventosParticipante(SQLiteDatabase db,String id) {
+
+        String[] visao = {
+                SemCompContract.Participante._ID,
+                SemCompContract.Participante.COLUMN_NAME_NOME,
+                SemCompContract.Participante.COLUMN_NAME_CPF,
+                SemCompContract.Participante.COLUMN_NAME_EMAIL,
+        };
+        String select = SemCompContract.Participante._ID+"=?";
+        String[] selectionArgs = {(id)};
+        return db.query(
+                SemCompContract.Participante.TABLE_NAME,
+                visao,
+                select,
+                selectionArgs,
+                null,
+                null,
+                null,
+                null);
     }
 }

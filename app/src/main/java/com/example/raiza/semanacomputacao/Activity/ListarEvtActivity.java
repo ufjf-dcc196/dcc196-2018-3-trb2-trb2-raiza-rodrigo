@@ -11,10 +11,11 @@ import com.example.raiza.semanacomputacao.Adapter.EventoAdapter;
 import com.example.raiza.semanacomputacao.Classes.Evento;
 import com.example.raiza.semanacomputacao.ListaInicialEvento;
 import com.example.raiza.semanacomputacao.R;
+import com.example.raiza.semanacomputacao.SemCompDbHelper;
 
 public class ListarEvtActivity extends AppCompatActivity {
     public static final String EVENTO = "Evento";
-    public static final String POSICAO_EVENTO = "Posição Evento";
+    public SemCompDbHelper dbHelper;
     public RecyclerView rvEvento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +24,9 @@ public class ListarEvtActivity extends AppCompatActivity {
         setContentView(R.layout.evt_lista_layout);
         rvEvento = (RecyclerView) findViewById(R.id.evt_rcl_lista);
         rvEvento.setLayoutManager(new LinearLayoutManager(this));
+        dbHelper = new SemCompDbHelper(getApplicationContext());
 
-        final EventoAdapter adapter = new EventoAdapter(ListaInicialEvento.getInstance());
+        final EventoAdapter adapter = new EventoAdapter(SemCompDbHelper.getCursorEventos(dbHelper.getReadableDatabase()));
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
             public void onEventoClick(View view, int position) {

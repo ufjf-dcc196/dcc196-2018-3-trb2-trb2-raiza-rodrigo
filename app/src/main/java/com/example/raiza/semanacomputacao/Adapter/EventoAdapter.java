@@ -1,6 +1,7 @@
 package com.example.raiza.semanacomputacao.Adapter;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,12 +11,12 @@ import android.widget.TextView;
 
 import com.example.raiza.semanacomputacao.Classes.Evento;
 import com.example.raiza.semanacomputacao.R;
+import com.example.raiza.semanacomputacao.SemCompContract;
 
 import java.util.List;
 
 public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder> {
-
-    private List<Evento> evento;
+    private Cursor cursor;
     private EventoAdapter.OnEventoClickListener listener;
 
     public interface OnEventoClickListener {
@@ -74,19 +75,32 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
     }
 
 
-    public EventoAdapter(List<Evento> evento) {
-        this.evento = evento;
+    public EventoAdapter(Cursor c) {
+        this.cursor = c;
+    }
+
+    public void SetCursor(Cursor c){
+        this.cursor = c;
+        notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(@NonNull EventoAdapter.ViewHolder holder, int position) {
-        holder.txtNome.setText(evento.get(position).getTitulo());
+        int idxTitulo = cursor.getColumnIndexOrThrow(SemCompContract.Evento.COLUMN_NAME_TITULO);
+        cursor.moveToPosition(position);
+        holder.txtNome.setText(String.valueOf(cursor.getString(idxTitulo)));
 
     }
 
     @Override
     public int getItemCount() {
-        return evento.size();
+        return cursor.getCount();
     }
 
+    @Override
+    public long getItemId(int position) {
+        int idxID = cursor.getColumnIndexOrThrow(SemCompContract.Evento._ID);
+        cursor.moveToPosition(position);
+        return cursor.getLong(idxID);
+    }
 }
