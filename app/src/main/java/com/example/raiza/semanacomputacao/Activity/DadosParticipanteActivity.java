@@ -37,8 +37,8 @@ public class DadosParticipanteActivity extends AppCompatActivity {
         txtCPF = (TextView) findViewById(R.id.txt_cpf);
         rvEvento = (RecyclerView) findViewById(R.id.rcl_evento_participante_dados);
         rvEvento.setLayoutManager(new LinearLayoutManager(this));
-        //final EventoAdapter adapter = new EventoAdapter(SemCompDbHelper.getCursorEventosParticipante());
-        //rvEvento.setAdapter(adapter);
+        final EventoAdapter adapter = new EventoAdapter(SemCompDbHelper.getCursorEventosParticipante(dbHelper.getReadableDatabase(),String.valueOf(bundleResultado.getLong(ListarPtcActivity.POSICAO_PARTICIPANTE))));
+        rvEvento.setAdapter(adapter);
         preencherCampos();
     }
 

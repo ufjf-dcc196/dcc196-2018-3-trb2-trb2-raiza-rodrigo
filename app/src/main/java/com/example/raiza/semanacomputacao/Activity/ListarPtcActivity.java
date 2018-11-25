@@ -17,7 +17,9 @@ import com.example.raiza.semanacomputacao.SemCompDbHelper;
 public class ListarPtcActivity extends AppCompatActivity {
     public static final String PARTICIPANTE = "Participante";
     public static final String POSICAO_PARTICIPANTE = "Posição Participante";
-    public SemCompDbHelper dbHelper;
+    private static final int REQUEST_EDICAO = 1;
+    private SemCompDbHelper dbHelper;
+    private ParticipanteAdapter adapter;
 
 
 
@@ -32,7 +34,7 @@ public class ListarPtcActivity extends AppCompatActivity {
 
         dbHelper = new SemCompDbHelper(getApplicationContext());
 
-        final ParticipanteAdapter adapter = new ParticipanteAdapter(SemCompDbHelper.getCursorParticipante(dbHelper.getReadableDatabase()));
+        adapter = new ParticipanteAdapter(SemCompDbHelper.getCursorParticipante(dbHelper.getReadableDatabase()));
         adapter.setOnParticipanteClickListener(new ParticipanteAdapter.OnParticipanteClickListener() {
             @Override
             public void onParticipanteClick(View view, int position) {
@@ -45,10 +47,16 @@ public class ListarPtcActivity extends AppCompatActivity {
             public void onLongParticipanteClick(View view, int position) {
                 Intent intent = new Intent(ListarPtcActivity.this, EditarParticipanteActivity.class);
                 intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE,adapter.getItemId(position));
-                startActivity(intent);
+                startActivityForResult(intent,ListarPtcActivity.REQUEST_EDICAO);
             }
         });
 
         rvParticipante.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        adapter.SetCursor(SemCompDbHelper.getCursorParticipante(dbHelper.getReadableDatabase()));
     }
 }

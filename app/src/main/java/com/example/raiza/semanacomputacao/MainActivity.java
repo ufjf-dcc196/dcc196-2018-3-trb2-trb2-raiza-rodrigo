@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnListarEvt;
     private Button btnCadastrarPtc;
     private Button btnCadastrarEvt;
+    private SemCompDbHelper dbHelper;
+
 
 
     @Override
@@ -25,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnListarPtc = (Button) findViewById(R.id.btn_lista_ptc);
+        dbHelper = new SemCompDbHelper(getApplicationContext());
+        ListaInicialParticipante.getInstance(dbHelper.getReadableDatabase());
+        ListaInicialEvento.getInstance(dbHelper.getReadableDatabase());
         btnListarPtc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

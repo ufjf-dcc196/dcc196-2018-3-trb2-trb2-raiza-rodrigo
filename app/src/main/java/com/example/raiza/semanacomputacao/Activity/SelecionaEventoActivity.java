@@ -15,17 +15,16 @@ import com.example.raiza.semanacomputacao.Classes.Participante;
 import com.example.raiza.semanacomputacao.ListaInicialEvento;
 import com.example.raiza.semanacomputacao.ListaInicialParticipante;
 import com.example.raiza.semanacomputacao.R;
+import com.example.raiza.semanacomputacao.SemCompDbHelper;
 
 import java.util.List;
 
 public class SelecionaEventoActivity extends AppCompatActivity {
-    public static final String EVENTO = "Evento";
+    public static final String POSICAO_EVENTO = "Evento";
     private static final int REQUEST_INSERCAO = 1;
-    public static final String I =  "i";
     private RecyclerView rvEvento;
-    private int posicao;
-    private Participante participante;
-    private List<Evento> lista;
+    private long posicao;
+    private SemCompDbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,6 @@ public class SelecionaEventoActivity extends AppCompatActivity {
         setContentView(R.layout.evt_seleciona_layout);
         rvEvento = (RecyclerView) findViewById(R.id.evt_rcl_cadastrados);
         rvEvento.setLayoutManager(new LinearLayoutManager(this));
-
         final Intent intent = getIntent();
         listarEventosNaoInscritos(intent);
 
@@ -48,22 +46,19 @@ public class SelecionaEventoActivity extends AppCompatActivity {
     }
 
     private void listarEventosNaoInscritos(Intent data) {
-        Bundle bundleResultado = data.getExtras();
-        posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
-        participante = ListaInicialParticipante.getInstance().get(posicao);
-        lista = ListaInicialEvento.getEventosParticipante(participante);
-
-       /* final EventoAdapter adapter = new EventoAdapter(lista);
+        final Bundle bundleResultado = data.getExtras();
+        posicao = bundleResultado.getLong(ListarPtcActivity.POSICAO_PARTICIPANTE);
+        dbHelper = new SemCompDbHelper(getApplicationContext());
+        final EventoAdapter adapter = new EventoAdapter(SemCompDbHelper.getCursorEventosParticipanteNãoInscrito(dbHelper.getReadableDatabase(),String.valueOf(posicao)));
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
             public void onEventoClick(View view, int position) {
-                Intent intent = getIntent().setClass(SelecionaEventoActivity.this, InscreverParticipanteEventoActivity.class);
-                int i = ListaInicialEvento.getInstance().indexOf(lista.get(position));
-                intent.putExtra(SelecionaEventoActivity.EVENTO, lista.get(position));
-                intent.putExtra(SelecionaEventoActivity.I, i);
+                Intent intent = new Intent(SelecionaEventoActivity.this, InscreverParticipanteEventoActivity.class);
+                intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE,posicao);
+                intent.putExtra(SelecionaEventoActivity.POSICAO_EVENTO, adapter.getItemId(position));
                 startActivityForResult(intent, SelecionaEventoActivity.REQUEST_INSERCAO);
             }
         });
-        rvEvento.setAdapter(adapter);*/
+        rvEvento.setAdapter(adapter);
     }
 }

@@ -19,6 +19,9 @@ public class SemCompDbHelper extends  SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SemCompContract.Evento.DROP_Evento);
+        db.execSQL(SemCompContract.Participante.DROP_Participante);
+        db.execSQL(SemCompContract.EventoParticipante.DROP_EventoParticipante);
         db.execSQL(SemCompContract.Evento.CREATE_Evento);
         db.execSQL(SemCompContract.Participante.CREATE_Participante);
         db.execSQL(SemCompContract.EventoParticipante.CREATE_EventoParticipante);
@@ -44,6 +47,15 @@ public class SemCompDbHelper extends  SQLiteOpenHelper{
         values.put(SemCompContract.Participante.COLUMN_NAME_CPF,cpf);
         long id = db.insert(SemCompContract.Participante.TABLE_NAME,null, values);
         values.put(SemCompContract.Participante._ID, Long.valueOf(id));
+        Log.i("DBINFO","registro criado com id: " + id);
+    }
+
+    public static void InserirParticipanteEvento(SQLiteDatabase db,String idParticipante, String idEvento){
+        ContentValues values = new ContentValues();
+        values.put(SemCompContract.EventoParticipante.COLUMN_NAME_PARTICIPANTE,idParticipante);
+        values.put(SemCompContract.EventoParticipante.COLUMN_NAME_EVENTO,idEvento);
+        long id = db.insert(SemCompContract.EventoParticipante.TABLE_NAME,null, values);
+        values.put(SemCompContract.EventoParticipante._ID, Long.valueOf(id));
         Log.i("DBINFO","registro criado com id: " + id);
     }
 
@@ -112,18 +124,21 @@ public class SemCompDbHelper extends  SQLiteOpenHelper{
                 null);
     }
 
-    public static Cursor getCursorEventosParticipante(SQLiteDatabase db,String id) {
+    public static Cursor getCursorEventoId(SQLiteDatabase db,String id) {
 
         String[] visao = {
-                SemCompContract.Participante._ID,
-                SemCompContract.Participante.COLUMN_NAME_NOME,
-                SemCompContract.Participante.COLUMN_NAME_CPF,
-                SemCompContract.Participante.COLUMN_NAME_EMAIL,
+                SemCompContract.Evento._ID,
+                SemCompContract.Evento.COLUMN_NAME_TITULO,
+                SemCompContract.Evento.COLUMN_NAME_HORA,
+                SemCompContract.Evento.COLUMN_NAME_DATA,
+                SemCompContract.Evento.COLUMN_NAME_DESCRICAO,
+                SemCompContract.Evento.COLUMN_NAME_FACILITADOR
+
         };
-        String select = SemCompContract.Participante._ID+"=?";
+        String select = SemCompContract.Evento._ID+"=?";
         String[] selectionArgs = {(id)};
         return db.query(
-                SemCompContract.Participante.TABLE_NAME,
+                SemCompContract.Evento.TABLE_NAME,
                 visao,
                 select,
                 selectionArgs,
@@ -131,5 +146,59 @@ public class SemCompDbHelper extends  SQLiteOpenHelper{
                 null,
                 null,
                 null);
+    }
+
+    public static Cursor getCursorEventosParticipanteNãoInscrito(SQLiteDatabase db,String id) {
+
+        String[] visao = {
+                SemCompContract.Evento.TABLE_NAME+"."+SemCompContract.Evento._ID
+        };
+        String select = SemCompContract.Participante.TABLE_NAME+"."+SemCompContract.Participante._ID+" =?";
+        String[] selectionArgs = {(id)};
+        String sql = "SELECT " + SemCompContract.Evento.TABLE_NAME+"."+SemCompContract.Evento._ID+","+SemCompContract.Evento.TABLE_NAME+"."+SemCompContract.Evento.COLUMN_NAME_TITULO +" from " +SemCompContract.Evento.TABLE_NAME +" where "+ SemCompContract.Evento.TABLE_NAME+"."+SemCompContract.Evento._ID + " not in (SELECT " + SemCompContract.Evento.TABLE_NAME+"."+SemCompContract.Evento._ID +" from "+ SemCompContract.Evento.TABLE_NAME + " LEFT JOIN "+ SemCompContract.EventoParticipante.TABLE_NAME +" on " + SemCompContract.Evento.TABLE_NAME +"." +SemCompContract.Evento._ID +" = "  + SemCompContract.EventoParticipante.TABLE_NAME +"." +SemCompContract.EventoParticipante.COLUMN_NAME_EVENTO
+                + " LEFT JOIN "+ SemCompContract.Participante.TABLE_NAME +" on " + SemCompContract.EventoParticipante.TABLE_NAME +"." +SemCompContract.EventoParticipante.COLUMN_NAME_PARTICIPANTE +" = "  + SemCompContract.Participante.TABLE_NAME +"." +SemCompContract.Participante._ID +" WHERE " + SemCompContract.Participante.TABLE_NAME+"."+SemCompContract.Participante._ID + "=?)";
+        return db.rawQuery(sql,selectionArgs);
+    }
+
+    public static Cursor getCursorEventosParticipante(SQLiteDatabase db,String id) {
+
+        String[] visao = {
+                SemCompContract.Evento.TABLE_NAME+"."+SemCompContract.Evento._ID
+        };
+        String select = SemCompContract.Participante.TABLE_NAME+"."+SemCompContract.Participante._ID+" =?";
+        String[] selectionArgs = {(id)};
+        String sql = "SELECT " + SemCompContract.Evento.TABLE_NAME+"."+SemCompContract.Evento._ID +" , "+ SemCompContract.Evento.TABLE_NAME+"."+SemCompContract.Evento.COLUMN_NAME_TITULO +" from "+ SemCompContract.Evento.TABLE_NAME + " LEFT JOIN "+ SemCompContract.EventoParticipante.TABLE_NAME +" on " + SemCompContract.Evento.TABLE_NAME +"." +SemCompContract.Evento._ID +" = "  + SemCompContract.EventoParticipante.TABLE_NAME +"." +SemCompContract.EventoParticipante.COLUMN_NAME_EVENTO
+                + " LEFT JOIN "+ SemCompContract.Participante.TABLE_NAME +" on " + SemCompContract.EventoParticipante.TABLE_NAME +"." +SemCompContract.EventoParticipante.COLUMN_NAME_PARTICIPANTE +" = "  + SemCompContract.Participante.TABLE_NAME +"." +SemCompContract.Participante._ID +" WHERE " + SemCompContract.Participante.TABLE_NAME+"."+SemCompContract.Participante._ID + "=?";
+        return db.rawQuery(sql,selectionArgs);
+    }
+
+    public static Cursor getCursorParticipantesEvento(SQLiteDatabase db,String id) {
+
+        String[] visao = {
+                SemCompContract.Participante.TABLE_NAME+"."+SemCompContract.Participante._ID
+        };
+        String select = SemCompContract.Evento.TABLE_NAME+"."+SemCompContract.Evento._ID+" =?";
+        String[] selectionArgs = {(id)};
+        String sql = "SELECT " + SemCompContract.Participante.TABLE_NAME+"."+SemCompContract.Participante._ID +" , "+ SemCompContract.Participante.TABLE_NAME+"."+SemCompContract.Participante.COLUMN_NAME_NOME +" from "+ SemCompContract.Participante.TABLE_NAME + " LEFT JOIN "+ SemCompContract.EventoParticipante.TABLE_NAME +" on " + SemCompContract.Participante.TABLE_NAME +"." +SemCompContract.Participante._ID +" = "  + SemCompContract.EventoParticipante.TABLE_NAME +"." +SemCompContract.EventoParticipante.COLUMN_NAME_PARTICIPANTE
+                + " LEFT JOIN "+ SemCompContract.Evento.TABLE_NAME +" on " + SemCompContract.EventoParticipante.TABLE_NAME +"." +SemCompContract.EventoParticipante.COLUMN_NAME_EVENTO +" = "  + SemCompContract.Evento.TABLE_NAME +"." +SemCompContract.Evento._ID +" WHERE " + SemCompContract.Evento.TABLE_NAME+"."+SemCompContract.Evento._ID + "=?";
+        Log.i("DBINFO", sql);
+        Log.i("DBINFO",id);
+        return db.rawQuery(sql,selectionArgs);
+    }
+
+    public static void UpdateParticipante(SQLiteDatabase db,String id,String nome, String email,String cpf){
+        ContentValues values = new ContentValues();
+        values.put(SemCompContract.Participante.COLUMN_NAME_NOME, nome);
+        values.put(SemCompContract.Participante.COLUMN_NAME_EMAIL, email);
+        values.put(SemCompContract.Participante.COLUMN_NAME_CPF, cpf);
+        String whereClause = SemCompContract.Participante._ID+"=?";
+        String[] whereArgs = {(id)};
+        db.update(SemCompContract.Participante.TABLE_NAME,values,whereClause,whereArgs);
+    }
+
+    public static void deleteEventoParticipante(SQLiteDatabase db,String idParticipante,String idEvento){
+        String select = SemCompContract.EventoParticipante.COLUMN_NAME_PARTICIPANTE+"=? AND " + SemCompContract.EventoParticipante.COLUMN_NAME_EVENTO+"=?";
+        String[] selectArgs = {idParticipante,idEvento};
+        db.delete(SemCompContract.EventoParticipante.TABLE_NAME,select,selectArgs);
     }
 }

@@ -37,7 +37,7 @@ public class CadastrarParticipanteActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 SemCompDbHelper.InserirParticipante(db,String.valueOf(edtNome.getText()),String.valueOf(edtEmail.getText()),String.valueOf(edtCpf.getText()));
-                Toast.makeText(CadastrarParticipanteActivity.this, edtNome.getText() + " Cadastrado com sucesso, O numero de cadastrados é " + ListaInicialParticipante.getInstance().size(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CadastrarParticipanteActivity.this, edtNome.getText() + " Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
                 edtCpf.setText("");
                 edtEmail.setText("");
                 edtNome.setText("");

@@ -39,7 +39,7 @@ public class CadastrarEventoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 SemCompDbHelper.InserirEvento(db,String.valueOf(edtTitulo.getText()),String.valueOf(edtData.getText()),String.valueOf(edtHora.getText()),String.valueOf(edtFacilitador.getText()),String.valueOf(edtDescricao.getText()));
-                Toast.makeText(CadastrarEventoActivity.this, edtTitulo.getText() + " Cadastrado com sucesso, O numero de cadastrados é " + ListaInicialEvento.getInstance().size(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CadastrarEventoActivity.this, edtTitulo.getText() + " Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
                 edtTitulo.setText("");
                 edtData.setText("");
                 edtHora.setText("");

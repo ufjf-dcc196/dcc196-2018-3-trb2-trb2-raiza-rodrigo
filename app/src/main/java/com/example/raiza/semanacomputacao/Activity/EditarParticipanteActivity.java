@@ -49,6 +49,7 @@ public class EditarParticipanteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = getIntent().setClass(EditarParticipanteActivity.this, SelecionaEventoActivity.class);
+                intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE,posicao);
                 startActivity(intent);
             }
         });
@@ -58,8 +59,6 @@ public class EditarParticipanteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EditarParticipanteActivity.this, ListaEventoCadastradoActivity.class);
-                Bundle bundleResultado = getIntent().getExtras();
-                posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
                 intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE,posicao);
                 startActivity(intent);
             }
@@ -69,12 +68,8 @@ public class EditarParticipanteActivity extends AppCompatActivity {
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //ListaInicialParticipante.getInstance().get(posicao).setUsuario(String.valueOf(edtNome.getText()));
-                //ListaInicialParticipante.getInstance().get(posicao).setEmail(String.valueOf(edtEmail.getText()));
-                //ListaInicialParticipante.getInstance().get(posicao).setCpf(String.valueOf(edtCpf.getText()));
-                //Toast.makeText(EditarParticipanteActivity.this, "Edição Concluida", Toast.LENGTH_SHORT).show();
-
-
+                SemCompDbHelper.UpdateParticipante(dbHelper.getReadableDatabase(),String.valueOf(posicao),String.valueOf(edtNome.getText()),String.valueOf(edtEmail.getText()),String.valueOf(edtCpf.getText()));
+                Toast.makeText(EditarParticipanteActivity.this, "Edição Concluida", Toast.LENGTH_SHORT).show();
             }
         });
 

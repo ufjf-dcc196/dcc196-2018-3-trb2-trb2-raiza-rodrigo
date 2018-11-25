@@ -12,11 +12,15 @@ import com.example.raiza.semanacomputacao.Classes.Participante;
 import com.example.raiza.semanacomputacao.ListaInicialEvento;
 import com.example.raiza.semanacomputacao.ListaInicialParticipante;
 import com.example.raiza.semanacomputacao.R;
+import com.example.raiza.semanacomputacao.SemCompDbHelper;
 
 
 public class ListaEventoCadastradoActivity extends AppCompatActivity {
         private RecyclerView rvEvento;
-        private Participante participante;
+        private long posicao;
+        private SemCompDbHelper dbHelper;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,25 +28,21 @@ public class ListaEventoCadastradoActivity extends AppCompatActivity {
         rvEvento = (RecyclerView) findViewById(R.id.evt_rcl_inscritos);
         rvEvento.setLayoutManager(new LinearLayoutManager(this));
 
-        Intent intent = getIntent();
-        participante = (Participante)intent.getSerializableExtra(ListarPtcActivity.PARTICIPANTE);
+        Bundle bundleResultado = getIntent().getExtras();
+        posicao =  bundleResultado.getLong(ListarPtcActivity.POSICAO_PARTICIPANTE);
 
+        dbHelper = new SemCompDbHelper(getApplicationContext());
 
-        /*final EventoAdapter adapter = new EventoAdapter(participante.getEvento());
+        final EventoAdapter adapter = new EventoAdapter(SemCompDbHelper.getCursorEventosParticipante(dbHelper.getReadableDatabase(),String.valueOf(posicao)));
 
         adapter.setOnShortEventoClickListener(new EventoAdapter.OnEventoClickListener() {
             @Override
             public void onEventoClick(View view, int position) {
-                Bundle bundleResultado = getIntent().getExtras();
-                int posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
-                int i= ListaInicialEvento.getInstance().indexOf(ListaInicialParticipante.getInstance().get(posicao).getEvento().get(position));
-
-                ListaInicialEvento.getInstance().get(i).getParticipante().remove(ListaInicialParticipante.getInstance().get(posicao));
-                ListaInicialParticipante.getInstance().get(posicao).getEvento().remove(position);
-                participante.getEvento().remove(position);
+                SemCompDbHelper.deleteEventoParticipante(dbHelper.getReadableDatabase(),String.valueOf(posicao),String.valueOf(adapter.getItemId(position)));
                 adapter.notifyItemRemoved(position);
+                adapter.SetCursor(SemCompDbHelper.getCursorEventosParticipante(dbHelper.getReadableDatabase(),String.valueOf(posicao)));
             }
         });
-        rvEvento.setAdapter(adapter);*/
+        rvEvento.setAdapter(adapter);
     }
 }

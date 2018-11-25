@@ -2,6 +2,7 @@ package com.example.raiza.semanacomputacao.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.example.raiza.semanacomputacao.Classes.Participante;
 import com.example.raiza.semanacomputacao.ListaInicialEvento;
 import com.example.raiza.semanacomputacao.ListaInicialParticipante;
 import com.example.raiza.semanacomputacao.R;
+import com.example.raiza.semanacomputacao.SemCompContract;
+import com.example.raiza.semanacomputacao.SemCompDbHelper;
 
 public class InscreverParticipanteEventoActivity extends AppCompatActivity {
     private TextView txtTitulo;
@@ -22,9 +25,9 @@ public class InscreverParticipanteEventoActivity extends AppCompatActivity {
     private TextView txtFacilitador;
     private TextView txtDescricao;
     private Button btnInscrever;
-    private Participante participante;
-    private Evento evento;
-    private int posicao;
+    private SemCompDbHelper dbHelper;
+    private long posicao;
+    private long posicaoEvento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,33 +43,45 @@ public class InscreverParticipanteEventoActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
         Bundle bundleResultado = intent.getExtras();
-        evento = (Evento) intent.getSerializableExtra(SelecionaEventoActivity.EVENTO);
-        posicao = bundleResultado.getInt(ListarPtcActivity.POSICAO_PARTICIPANTE);
-        participante =(Participante) intent.getSerializableExtra(ListarPtcActivity.PARTICIPANTE);
-
-        txtTitulo.setText(txtTitulo.getText()+evento.getTitulo());
-        txtHora.setText(txtHora.getText()+evento.getHora());
-        txtData.setText(txtData.getText()+evento.getData());
-        txtFacilitador.setText(txtFacilitador.getText()+evento.getFacilitador());
-        txtDescricao.setText(txtDescricao.getText()+evento.getDescricao());
+        posicao = bundleResultado.getLong(ListarPtcActivity.POSICAO_PARTICIPANTE);
+        posicaoEvento = bundleResultado.getLong(SelecionaEventoActivity.POSICAO_EVENTO);
+        preencherCampos();
 
         btnInscrever.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
                 Bundle resultado = getIntent().getExtras();
-                int i = resultado.getInt(SelecionaEventoActivity.I);
-                ListaInicialParticipante.getInstance().get(posicao).getEvento().add(ListaInicialEvento.getInstance().get(i));
-                participante.getEvento().add(ListaInicialEvento.getInstance().get(i));
-
-                ListaInicialEvento.getInstance().get(i).getParticipante().add(ListaInicialParticipante.getInstance().get(posicao));
-                intent.putExtra(ListarPtcActivity.PARTICIPANTE,participante);
                 intent.putExtra(ListarPtcActivity.POSICAO_PARTICIPANTE,posicao);
+                SemCompDbHelper.InserirParticipanteEvento(dbHelper.getReadableDatabase(),String.valueOf(posicao),String.valueOf(posicaoEvento));
                 setResult(Activity.RESULT_OK,intent);
-                Toast.makeText(InscreverParticipanteEventoActivity.this, evento.getTitulo() + " " +ListaInicialParticipante.getInstance().get(posicao).getUsuario() + " foi adicionado ao Evento.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(InscreverParticipanteEventoActivity.this, txtTitulo.getText() + " foi adicionado.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
+
+    }
+
+    private void preencherCampos(){
+
+        dbHelper = new SemCompDbHelper(getApplicationContext());
+
+        Cursor cursor = SemCompDbHelper.getCursorEventoId(dbHelper.getReadableDatabase(),String.valueOf(posicaoEvento));
+
+        int idxTitulo = cursor.getColumnIndexOrThrow(SemCompContract.Evento.COLUMN_NAME_TITULO);
+        int idxHora = cursor.getColumnIndexOrThrow(SemCompContract.Evento.COLUMN_NAME_HORA);
+        int idxData = cursor.getColumnIndexOrThrow(SemCompContract.Evento.COLUMN_NAME_DATA);
+        int idxFacilitador = cursor.getColumnIndexOrThrow(SemCompContract.Evento.COLUMN_NAME_FACILITADOR);
+        int idxDescricao = cursor.getColumnIndexOrThrow(SemCompContract.Evento.COLUMN_NAME_DESCRICAO);
+
+        cursor.moveToFirst();
+
+        txtTitulo.setText(cursor.getString(idxTitulo));
+        txtHora.setText( String.valueOf(cursor.getString(idxHora)));
+        txtData.setText(cursor.getString(idxData));
+        txtFacilitador.setText(cursor.getString(idxFacilitador));
+        txtDescricao.setText(cursor.getString(idxDescricao));
+
 
     }
 }

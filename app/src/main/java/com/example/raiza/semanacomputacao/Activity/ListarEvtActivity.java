@@ -14,7 +14,7 @@ import com.example.raiza.semanacomputacao.R;
 import com.example.raiza.semanacomputacao.SemCompDbHelper;
 
 public class ListarEvtActivity extends AppCompatActivity {
-    public static final String EVENTO = "Evento";
+    public static final String POSICAO_EVENTO = "Posição Evento";
     public SemCompDbHelper dbHelper;
     public RecyclerView rvEvento;
     @Override
@@ -31,7 +31,7 @@ public class ListarEvtActivity extends AppCompatActivity {
             @Override
             public void onEventoClick(View view, int position) {
                 Intent intent = new Intent(ListarEvtActivity.this,DadosEventoActivity.class);
-                intent.putExtra(ListarEvtActivity.EVENTO,(Evento) ListaInicialEvento.getInstance().get(position));
+                intent.putExtra(ListarEvtActivity.POSICAO_EVENTO,adapter.getItemId(position));
                 startActivity(intent);
             }
         });
